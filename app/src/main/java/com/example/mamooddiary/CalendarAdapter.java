@@ -7,15 +7,21 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder> {
     private final ArrayList<String> dayOfMonth;
+    private final ArrayList<String> dateOfMonth;
     private final OnItemListener onItemListener;
 
-    public CalendarAdapter(ArrayList<String> dayOfMonth, OnItemListener onItemListener) {
+    public CalendarAdapter(ArrayList<String> dayOfMonth,
+                           ArrayList<String> dateOfMonth,
+                           OnItemListener onItemListener) {
         this.dayOfMonth = dayOfMonth;
+        this.dateOfMonth = dateOfMonth;
         this.onItemListener = onItemListener;
+
     }
 
     @NonNull
@@ -25,7 +31,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder> {
         View view = inflater.inflate(R.layout.calendar_cell, parent, false);
         ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
         layoutParams.height = (int) (parent.getHeight() * 0.166666666);
-        return new CalendarViewHolder(view, onItemListener);
+        return new CalendarViewHolder(view, onItemListener, dateOfMonth);
     }
 
     @Override
