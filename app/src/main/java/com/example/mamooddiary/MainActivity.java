@@ -47,14 +47,19 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         monthYearText.setText(monthYearFromDate(selectedDate));
         ArrayList<String> daysInMonth = daysInMonthArray(selectedDate);
 
-        CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth, this);
+        CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth,
+                selectedDate.getMonthValue() ,
+                selectedDate.getYear(),
+                this);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 7);
         calendarRecyclerView.setLayoutManager(layoutManager);
         calendarRecyclerView.setAdapter(calendarAdapter);
     }
 
-    private ArrayList<String> daysInMonthArray(LocalDate date)
-    {
+    // this return specify position day in calendar
+    // If first day of month day is WED
+    // return data is { "", "" , "", 1, 2, 3 ... ,31, "" ...}
+    private ArrayList<String> daysInMonthArray(LocalDate date) {
         ArrayList<String> daysInMonthArray = new ArrayList<>();
         YearMonth yearMonth = YearMonth.from(date);
 
@@ -63,19 +68,20 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         LocalDate firstOfMonth = selectedDate.withDayOfMonth(1);
         int dayOfWeek = firstOfMonth.getDayOfWeek().getValue();
 
-        for(int i = 1; i <= 42; i++)
-        {
-            if(i <= dayOfWeek || i > daysInMonth + dayOfWeek)
-            {
+        // This return position of day. If not right position it will be "". for example
+        // date 1 in march 2023 should be at WED. but the the table start with SUN
+        // so when it not right. It add "" to array.
+        for(int i = 1; i <= 42; i++) {
+            if(i <= dayOfWeek || i > daysInMonth + dayOfWeek) {
                 daysInMonthArray.add("");
             }
-            else
-            {
+            else {
                 daysInMonthArray.add(String.valueOf(i - dayOfWeek));
             }
         }
         return  daysInMonthArray;
     }
+
 
     private String monthYearFromDate(LocalDate date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM yyyy");
