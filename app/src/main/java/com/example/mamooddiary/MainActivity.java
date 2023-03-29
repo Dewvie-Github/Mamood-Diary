@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -89,10 +90,9 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
     }
 
     @Override
-    public void onItemClick(int position, String dayText) {
+    public void onItemClick(int position, String dayText, int day, int month, int year) {
         if(!dayText.equals("")) {
-            String message = "Selected Date " + dayText + " " + monthYearFromDate(selectedDate);
-            Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+            startActivity(startDiaryActivity(day, month, year));
         }
     }
 
@@ -108,5 +108,13 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
                 setMonthView();
                 break;
         }
+    }
+
+    private Intent startDiaryActivity(int day, int month, int year){
+        Intent intent = new Intent(this, DiaryActivity.class);
+        intent.putExtra("day", day );
+        intent.putExtra("month", month);
+        intent.putExtra("year", year);
+        return intent;
     }
 }

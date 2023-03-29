@@ -53,6 +53,6 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder> {
         return dayOfMonth.size();
     }
     public interface OnItemListener{
-        void onItemClick(int position, String dayText);
+        void onItemClick(int position, String dayText, int day, int month, int year);
     }
 }
