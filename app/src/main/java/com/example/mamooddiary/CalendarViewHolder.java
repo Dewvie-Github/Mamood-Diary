@@ -36,14 +36,15 @@ public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.
         this.yearOfDay = yearOfDay;
 
         parentLayout = itemView.findViewById(R.id.parent_layout);
-
         // Normal day
         if ( day == -1 || !isNotedDay(day, monthOfDay, yearOfDay)){
             dayOfMonth = itemView.findViewById(R.id.cellDayText);
+            dayOfMonth.setTextColor(Color.WHITE);
         }
         // Noted day
         else{
             dayOfMonth = itemView.findViewById(R.id.cellDayText);
+            dayOfMonth.setTextColor(Color.WHITE);
             parentLayout.setBackgroundColor(Color.RED);
         }
         itemView.setOnClickListener(this);
