@@ -4,13 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.CalendarView;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -19,11 +18,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener, View.OnClickListener{
-    private TextView monthYearText;
+    private TextView monthTextview;
     private RecyclerView calendarRecyclerView;
     private LocalDate selectedDate;
 
-    private TextView previousButton, nextButton;
+    ImageView previousButton, nextButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,16 +36,18 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
 
     private void initWidgets() {
         calendarRecyclerView = findViewById(R.id.calendarRecycleView);
-        monthYearText = findViewById(R.id.monthYearTextView);
 
-        previousButton = findViewById(R.id.previousButton);
-        nextButton = findViewById(R.id.nextButton);
+        monthTextview = findViewById(R.id.monthTextView);
+        monthTextview.setOnClickListener(this);
+        previousButton = findViewById(R.id.previousMonthButton);
+        nextButton = findViewById(R.id.nextMonthButton);
         previousButton.setOnClickListener(this);
         nextButton.setOnClickListener(this);
     }
 
     private void setMonthView() {
-        monthYearText.setText(monthYearFromDate(selectedDate));
+        // set month text
+        monthTextview.setText(selectedDate.getMonth().toString().toUpperCase());
         ArrayList<String> daysInMonth = daysInMonthArray(selectedDate);
 
         CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth,
@@ -100,13 +101,16 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.previousButton:
+            case R.id.previousMonthButton:
                 selectedDate = selectedDate.minusMonths(1);
                 setMonthView();
                 break;
-            case R.id.nextButton:
+            case R.id.nextMonthButton:
                 selectedDate = selectedDate.plusMonths(1);
                 setMonthView();
+                break;
+            case R.id.monthTextView:
+                showDatePickerDialog();
                 break;
         }
     }
@@ -129,4 +133,21 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
     public void onBackPressed(){
 
     }
+
+    private void showDatePickerDialog() {
+        MonthYearPickerDialog monthYearPickerDialog = new MonthYearPickerDialog(
+                this,
+                (month, year) -> {
+                    // Update the selectedDate with the selected month and year
+                    selectedDate = LocalDate.of(year, month, 1);
+                    setMonthView();
+                }
+        );
+
+        // Show the MonthYearPickerDialog
+        monthYearPickerDialog.show();
+    }
+
+
+
 }
