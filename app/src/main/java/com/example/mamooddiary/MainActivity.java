@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         initWidgets();
         selectedDate = LocalDate.now();
         setMonthView();
+        closeActionBar();
     }
 
     private void initWidgets() {
@@ -116,5 +117,11 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         intent.putExtra("month", month);
         intent.putExtra("year", year);
         return intent;
+    }
+
+    public void closeActionBar() {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
     }
 }
