@@ -124,4 +124,9 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
             getSupportActionBar().hide();
         }
     }
+
+    @Override
+    public void onBackPressed(){
+
+    }
 }
