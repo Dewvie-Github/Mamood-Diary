@@ -45,7 +45,7 @@ public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.
         else{
             dayOfMonth = itemView.findViewById(R.id.cellDayText);
             dayOfMonth.setTextColor(Color.WHITE);
-            parentLayout.setBackgroundColor(Color.RED);
+            parentLayout.setBackgroundResource(R.drawable.calendar_noted_cell_bg);
         }
         itemView.setOnClickListener(this);
     }
