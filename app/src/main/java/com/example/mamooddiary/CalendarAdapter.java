@@ -30,7 +30,6 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder> {
     @NonNull
     @Override
     public CalendarViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        System.out.println("wow: " + dayOfMonth + " " +monthOfDay);
         // Retrieve the day value based on the position
         String dayStr = dayOfMonth.get(counterDateOfMonth);
 
@@ -39,28 +38,34 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder> {
         // set calendar cells
         LayoutInflater inflater;
         View view = null;
+        inflater = LayoutInflater.from(parent.getContext());
 
+        String mood = "";
         // getMoodTypeByDate
-        String mood = CalendarViewHolder.getMoodTypeByDate(Integer.parseInt(dayOfMonth.get(counterDateOfMonth)), monthOfDay,  yearOfDay);
+        if(day != -1)
+            mood = CalendarViewHolder.getMoodTypeByDate(Integer.parseInt(dayOfMonth.get(counterDateOfMonth)), monthOfDay,  yearOfDay);
+
 
         // non day
         if ( day == -1 ){
-            inflater = LayoutInflater.from(parent.getContext());
-            view = inflater.inflate(R.layout.calendar_default_cell, parent, false);
-            ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
-            layoutParams.height = (int) (parent.getHeight() * 0.166666666);
+            view = inflater.inflate(R.layout.calendar_empty_cell, parent, false);
         }
         else if(!CalendarViewHolder.isNotedDay(day, monthOfDay, yearOfDay)){
-            inflater = LayoutInflater.from(parent.getContext());
             view = inflater.inflate(R.layout.calendar_normal_cell, parent, false);
-            ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
-            layoutParams.height = (int) (parent.getHeight() * 0.166666666);
-        }else if (mood.equals("normal")){
-            inflater = LayoutInflater.from(parent.getContext());
+        }else if (mood.equals("happy")){
             view = inflater.inflate(R.layout.calendar_happy_cell, parent, false);
-            ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
-            layoutParams.height = (int) (parent.getHeight() * 0.166666666);
+        }else if (mood.equals("notok")){
+            view = inflater.inflate(R.layout.calendar_notok_cell, parent, false);
+        }else if (mood.equals("sad")){
+            view = inflater.inflate(R.layout.calendar_sad_cell, parent, false);
+        }else if (mood.equals("smile")){
+            view = inflater.inflate(R.layout.calendar_smile_cell, parent, false);
+        }else{
+            view = inflater.inflate(R.layout.calendar_default_cell, parent, false);
         }
+
+        ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+        layoutParams.height = (int) (parent.getHeight() * 0.166666666);
 
         counterDateOfMonth++;
         return new CalendarViewHolder(view, onItemListener, day, monthOfDay, yearOfDay);
@@ -68,7 +73,8 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull CalendarViewHolder holder, int position) {
-        holder.dayOfMonth.setText(dayOfMonth.get(position));
+        if(dayOfMonth.get(position) != null)
+            holder.dayOfMonth.setText(dayOfMonth.get(position));
     }
 
     @Override
