@@ -7,12 +7,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -29,7 +31,9 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
     private LocalDate selectedDate;
     private LocalDate oldDate;
 
-    ImageView previousButton, nextButton;
+    //ImageView previousButton, nextButton;
+    Button btnBackToSplash;
+    MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         initWidgets();
         selectedDate = LocalDate.now();
         setMonthView();
+        mediaPlayer = MediaPlayer.create(this, R.raw.click);
         closeActionBar();
     }
 
@@ -48,10 +53,13 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         monthTextview.setOnClickListener(this);
         yearTextview = findViewById(R.id.yearTextview);
 
-        previousButton = findViewById(R.id.previousMonthButton);
-        nextButton = findViewById(R.id.nextMonthButton);
-        previousButton.setOnClickListener(this);
-        nextButton.setOnClickListener(this);
+        btnBackToSplash = (Button) findViewById(R.id.btnBackToSplash);
+        btnBackToSplash.setOnClickListener(this);
+
+//        previousButton = findViewById(R.id.previousMonthButton);
+//        nextButton = findViewById(R.id.nextMonthButton);
+//        previousButton.setOnClickListener(this);
+//        nextButton.setOnClickListener(this);
     }
 
     private void setMonthView() {
@@ -139,15 +147,20 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.previousMonthButton:
-                oldDate = selectedDate;
-                selectedDate = selectedDate.minusMonths(1);
-                setMonthView();
-                break;
-            case R.id.nextMonthButton:
-                oldDate = selectedDate;
-                selectedDate = selectedDate.plusMonths(1);
-                setMonthView();
+//            case R.id.previousMonthButton:
+//                oldDate = selectedDate;
+//                selectedDate = selectedDate.minusMonths(1);
+//                setMonthView();
+//                break;
+//            case R.id.nextMonthButton:
+//                oldDate = selectedDate;
+//                selectedDate = selectedDate.plusMonths(1);
+//                setMonthView();
+//                break;
+            case R.id.btnBackToSplash:
+                mediaPlayer.start();
+                startActivity(new Intent(MainActivity.this, SplashActivity.class));
+                finish();
                 break;
             case R.id.monthTextView:
                 showDatePickerDialog();
