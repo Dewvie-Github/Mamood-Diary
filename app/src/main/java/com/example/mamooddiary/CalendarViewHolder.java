@@ -1,22 +1,22 @@
 package com.example.mamooddiary;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.time.LocalDate;
-import java.time.Month;
-import java.util.ArrayList;
-import java.util.List;
 
 public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     public final TextView dayOfMonth;
     public final View parentLayout;
+    public ImageView image;
 
     private int day;
     private int monthOfDay;
@@ -35,19 +35,27 @@ public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.
         this.monthOfDay = monthOfDay;
         this.yearOfDay = yearOfDay;
 
-        parentLayout = itemView.findViewById(R.id.parent_layout);
+
+        if (day == -1){
+            parentLayout = itemView.findViewById(R.id.parent_default_layout);
+            dayOfMonth = itemView.findViewById(R.id.cellDefaultDayText);;
+        }
         // Normal day
-        if ( day == -1 || !isNotedDay(day, monthOfDay, yearOfDay)){
+        else if (  !isNotedDay(day, monthOfDay, yearOfDay)){
+            parentLayout = itemView.findViewById(R.id.parent_layout);
             dayOfMonth = itemView.findViewById(R.id.cellDayText);
             dayOfMonth.setTextColor(Color.WHITE);
+            itemView.setOnClickListener(this);
         }
-        // Noted day
+        // Noted happy day
+
         else{
-            dayOfMonth = itemView.findViewById(R.id.cellDayText);
+            parentLayout = itemView.findViewById(R.id.parent_happy_layout);
+            dayOfMonth = itemView.findViewById(R.id.cellHappyDayText);
             dayOfMonth.setTextColor(Color.WHITE);
-            parentLayout.setBackgroundResource(R.drawable.calendar_noted_cell_bg);
+            itemView.setOnClickListener(this);
         }
-        itemView.setOnClickListener(this);
+
     }
 
     @Override
@@ -59,7 +67,7 @@ public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.
     }
 
 
-    private boolean isNotedDay(int day, int monthOfDay, int yearOfDay) {
+    public static boolean isNotedDay(int day, int monthOfDay, int yearOfDay) {
         // this is sql but now it mockup
         // like SELECT * FROM my_table WHERE day = day AND month = monthOfDay AND year = yearOfDay;
         for (MockNote note : MockData.getMockNotes()) {
