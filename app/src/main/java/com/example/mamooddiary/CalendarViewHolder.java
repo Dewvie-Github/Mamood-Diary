@@ -1,11 +1,16 @@
 package com.example.mamooddiary;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -36,21 +41,17 @@ public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.
             dayOfMonth = itemView.findViewById(R.id.cellDefaultDayText);;
         }
         // Normal day
-        else if (  !isNotedDay(day, monthOfDay, yearOfDay)){
-            parentLayout = itemView.findViewById(R.id.parent_normal_layout);
-            dayOfMonth = itemView.findViewById(R.id.cellNormalDayText);
-            dayOfMonth.setTextColor(Color.WHITE);
+        else if ( !isNotedDay(day, monthOfDay, yearOfDay)){
+            parentLayout = itemView.findViewById(R.id.parent_layout);
+            dayOfMonth = itemView.findViewById(R.id.cellDayText);
             itemView.setOnClickListener(this);
         }
         // Noted happy day
-
         else{
             parentLayout = itemView.findViewById(R.id.parent_happy_layout);
-            dayOfMonth = itemView.findViewById(R.id.cellDefaultDayText);
-            dayOfMonth.setTextColor(Color.WHITE);
+            dayOfMonth = itemView.findViewById(R.id.cellHappyDayText);
             itemView.setOnClickListener(this);
         }
-
     }
 
     @Override
@@ -72,5 +73,17 @@ public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.
             }
         }
         return false;
+    }
+
+    public static String getMoodTypeByDate(int day, int monthOfDay, int yearOfDay) {
+        String mood = "";
+
+        for (MockNote note : MockData.getMockNotes()) {
+            if (note.getDay() == day && note.getMonth() == monthOfDay && note.getYear() == yearOfDay) {
+                mood = note.getMood();
+            }
+        }
+
+        return mood;
     }
 }
