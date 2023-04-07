@@ -5,12 +5,14 @@ public class MockNote {
     private int month;
     private int year;
     private String message;
+    private String mood;
 
-    public MockNote(int day, int month, int year, String message) {
+    public MockNote(int day, int month, int year, String message, String mood) {
         this.day = day;
         this.month = month;
         this.year = year;
         this.message = message;
+        this.mood = mood;
     }
 
     public int getDay() {
@@ -43,5 +45,12 @@ public class MockNote {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+    public String getMood() {
+        return mood;
+    }
+
+    public void setMood(String mood) {
+        this.mood = mood;
     }
 }
