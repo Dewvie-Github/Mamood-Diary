@@ -74,7 +74,7 @@ public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.
                 break;
         }
 
-        System.out.println("Day:" + day + " WOW: " + parentLayout.getContext().getResources().getResourceEntryName((dayOfMonth.getId())));
+        // System.out.println("Day:" + day + " WOW: " + parentLayout.getContext().getResources().getResourceEntryName((dayOfMonth.getId())));
     }
 
     @Override
