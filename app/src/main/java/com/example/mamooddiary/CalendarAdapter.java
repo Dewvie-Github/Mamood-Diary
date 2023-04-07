@@ -38,7 +38,10 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder> {
 
         // set calendar cells
         LayoutInflater inflater;
-        View view;
+        View view = null;
+
+        // getMoodTypeByDate
+        String mood = CalendarViewHolder.getMoodTypeByDate(Integer.parseInt(dayOfMonth.get(counterDateOfMonth)), monthOfDay,  yearOfDay);
 
         // non day
         if ( day == -1 ){
@@ -52,7 +55,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder> {
             view = inflater.inflate(R.layout.calendar_normal_cell, parent, false);
             ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
             layoutParams.height = (int) (parent.getHeight() * 0.166666666);
-        }else{
+        }else if (mood.equals("normal")){
             inflater = LayoutInflater.from(parent.getContext());
             view = inflater.inflate(R.layout.calendar_happy_cell, parent, false);
             ViewGroup.LayoutParams layoutParams = view.getLayoutParams();

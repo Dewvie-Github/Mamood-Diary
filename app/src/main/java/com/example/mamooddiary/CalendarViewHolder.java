@@ -41,21 +41,17 @@ public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.
             dayOfMonth = itemView.findViewById(R.id.cellDefaultDayText);;
         }
         // Normal day
-        else if (  !isNotedDay(day, monthOfDay, yearOfDay)){
+        else if ( !isNotedDay(day, monthOfDay, yearOfDay)){
             parentLayout = itemView.findViewById(R.id.parent_layout);
             dayOfMonth = itemView.findViewById(R.id.cellDayText);
-            dayOfMonth.setTextColor(Color.WHITE);
             itemView.setOnClickListener(this);
         }
         // Noted happy day
-
         else{
             parentLayout = itemView.findViewById(R.id.parent_happy_layout);
             dayOfMonth = itemView.findViewById(R.id.cellHappyDayText);
-            dayOfMonth.setTextColor(Color.WHITE);
             itemView.setOnClickListener(this);
         }
-
     }
 
     @Override
@@ -77,5 +73,17 @@ public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.
             }
         }
         return false;
+    }
+
+    public static String getMoodTypeByDate(int day, int monthOfDay, int yearOfDay) {
+        String mood = "";
+
+        for (MockNote note : MockData.getMockNotes()) {
+            if (note.getDay() == day && note.getMonth() == monthOfDay && note.getYear() == yearOfDay) {
+                mood = note.getMood();
+            }
+        }
+
+        return mood;
     }
 }
