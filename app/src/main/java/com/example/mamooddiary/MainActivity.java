@@ -1,5 +1,6 @@
 package com.example.mamooddiary;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -7,8 +8,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.time.LocalDate;
@@ -18,9 +24,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener, View.OnClickListener{
-    private TextView monthTextview;
+    private TextView monthTextview, yearTextview;
     private RecyclerView calendarRecyclerView;
     private LocalDate selectedDate;
+    private LocalDate oldDate;
 
     ImageView previousButton, nextButton;
 
@@ -39,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
 
         monthTextview = findViewById(R.id.monthTextView);
         monthTextview.setOnClickListener(this);
+        yearTextview = findViewById(R.id.yearTextview);
+
         previousButton = findViewById(R.id.previousMonthButton);
         nextButton = findViewById(R.id.nextMonthButton);
         previousButton.setOnClickListener(this);
@@ -46,8 +55,10 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
     }
 
     private void setMonthView() {
-        // set month text
+        // set month and year text
         monthTextview.setText(selectedDate.getMonth().toString().toUpperCase());
+        yearTextview.setText(String.valueOf(selectedDate.getYear()));
+
         ArrayList<String> daysInMonth = daysInMonthArray(selectedDate);
 
         CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth,
@@ -57,6 +68,33 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 7);
         calendarRecyclerView.setLayoutManager(layoutManager);
         calendarRecyclerView.setAdapter(calendarAdapter);
+
+        // animation
+        LinearLayout innerLayout = findViewById(R.id.calendarLayout);
+        Animation slideInLeftWithinInnerBoundsAnimation;
+        if(selectedDate != null && oldDate != null &&  selectedDate.isBefore(oldDate ) )
+            slideInLeftWithinInnerBoundsAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_in_left);
+        else
+            slideInLeftWithinInnerBoundsAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_in_right);
+        // Apply the animation to the inner LinearLayout
+        innerLayout.startAnimation(slideInLeftWithinInnerBoundsAnimation);
+
+        // Add the swipe gesture listener to the calendar RecyclerView
+        final GestureDetector gestureDetector = new GestureDetector(this, new SwipeGestureListener());
+        calendarRecyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+                return gestureDetector.onTouchEvent(e);
+            }
+
+            @Override
+            public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+            }
+        });
     }
 
     // this return specify position day in calendar
@@ -102,10 +140,12 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.previousMonthButton:
+                oldDate = selectedDate;
                 selectedDate = selectedDate.minusMonths(1);
                 setMonthView();
                 break;
             case R.id.nextMonthButton:
+                oldDate = selectedDate;
                 selectedDate = selectedDate.plusMonths(1);
                 setMonthView();
                 break;
@@ -139,6 +179,7 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
                 this,
                 (month, year) -> {
                     // Update the selectedDate with the selected month and year
+                    oldDate = selectedDate;
                     selectedDate = LocalDate.of(year, month, 1);
                     setMonthView();
                 }
@@ -148,6 +189,44 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         monthYearPickerDialog.show();
     }
 
+    private void onSwipeLeft() {
+        oldDate = selectedDate;
+        selectedDate = selectedDate.plusMonths(1);
+        setMonthView();
+    }
 
+    private void onSwipeRight() {
+        oldDate = selectedDate;
+        selectedDate = selectedDate.minusMonths(1);
+        setMonthView();
+    }
 
+    class SwipeGestureListener extends GestureDetector.SimpleOnGestureListener {
+        private static final int SWIPE_MIN_DISTANCE = 100;
+        private static final int SWIPE_MAX_OFF_PATH = 250;
+        private static final int SWIPE_THRESHOLD_VELOCITY = 100;
+
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            try {
+                float diffY = e2.getY() - e1.getY();
+                float diffX = e2.getX() - e1.getX();
+                if (Math.abs(diffX) > Math.abs(diffY)) {
+                    if (Math.abs(diffX) > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+                        if (diffX > 0) {
+                            onSwipeRight();
+                        } else {
+                            onSwipeLeft();
+                        }
+                        return true;
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return false;
+        }
+    }
 }
+
+
