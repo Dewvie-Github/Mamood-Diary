@@ -137,6 +137,7 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         return date.format(formatter);
     }
 
+    // when click on date on calendar
     @Override
     public void onItemClick(int position, String dayText, int day, int month, int year) {
         if(!dayText.equals("")) {
