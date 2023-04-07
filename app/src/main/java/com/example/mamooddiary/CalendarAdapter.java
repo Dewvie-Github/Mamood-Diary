@@ -51,7 +51,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder> {
             view = inflater.inflate(R.layout.calendar_empty_cell, parent, false);
         }
         else if(!CalendarViewHolder.isNotedDay(day, monthOfDay, yearOfDay)){
-            view = inflater.inflate(R.layout.calendar_normal_cell, parent, false);
+            view = inflater.inflate(R.layout.calendar_default_cell, parent, false);
         }else if (mood.equals("happy")){
             view = inflater.inflate(R.layout.calendar_happy_cell, parent, false);
         }else if (mood.equals("notok")){
@@ -61,7 +61,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder> {
         }else if (mood.equals("smile")){
             view = inflater.inflate(R.layout.calendar_smile_cell, parent, false);
         }else{
-            view = inflater.inflate(R.layout.calendar_default_cell, parent, false);
+            view = inflater.inflate(R.layout.calendar_normal_cell, parent, false);
         }
 
         ViewGroup.LayoutParams layoutParams = view.getLayoutParams();

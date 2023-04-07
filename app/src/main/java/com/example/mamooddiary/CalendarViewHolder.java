@@ -42,8 +42,8 @@ public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.
         }
         // default day
         else if ( !isNotedDay(day, monthOfDay, yearOfDay)){
-            parentLayout = itemView.findViewById(R.id.parent_normal_layout);
-            dayOfMonth = itemView.findViewById(R.id.cellNormalDayText);
+            parentLayout = itemView.findViewById(R.id.parent_default_layout);
+            dayOfMonth = itemView.findViewById(R.id.cellDefaultDayText);
             itemView.setOnClickListener(this);
         }
         switch (getMoodTypeByDate(day,monthOfDay,yearOfDay)){

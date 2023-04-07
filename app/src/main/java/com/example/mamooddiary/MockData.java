@@ -15,6 +15,5 @@ public class MockData {
 
         return notes;
     }
-
 }
 
