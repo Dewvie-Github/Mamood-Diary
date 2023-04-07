@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener, View.OnClickListener{
+
     private TextView monthTextview, yearTextview;
     private RecyclerView calendarRecyclerView;
     private LocalDate selectedDate;
@@ -44,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         setMonthView();
         mediaPlayer = MediaPlayer.create(this, R.raw.click);
         closeActionBar();
+
+
     }
 
     private void initWidgets() {
@@ -225,6 +228,7 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
 
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+
             try {
                 float diffY = e2.getY() - e1.getY();
                 float diffX = e2.getX() - e1.getX();

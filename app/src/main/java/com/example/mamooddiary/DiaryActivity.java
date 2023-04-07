@@ -1,8 +1,11 @@
 package com.example.mamooddiary;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -12,25 +15,44 @@ import java.time.LocalDate;
 
 
 public class DiaryActivity extends AppCompatActivity implements View.OnClickListener {
+    DBHelper dbh;
     private int day, month, year;
     TextView diaryBackButton, diarySaveButton;
+    ImageButton moodButton,moodButton1,moodButton2,moodButton3,moodButton4;
+
+    String mood;
+
+
+    EditText message;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mock_activity_diary);
 
-        // Default value if day not parse is today
-        LocalDate dateNow = LocalDate.now();
-        day = getIntent().getIntExtra("day", LocalDate.now().getDayOfMonth());
-        month = getIntent().getIntExtra("month", LocalDate.now().getMonthValue());
-        year = getIntent().getIntExtra("year", LocalDate.now().getYear());
+
+        Intent intent = getIntent();
+        String day = intent.getStringExtra("day");
+        String month = intent.getStringExtra("month");
+        String year = intent.getStringExtra("year");
+
 
         diaryBackButton = findViewById(R.id.diaryBackButton);
         diarySaveButton = findViewById(R.id.diarySaveButton);
         diaryBackButton.setOnClickListener(this);
         diarySaveButton.setOnClickListener(this);
-        System.out.println(day + "-" + month + "-" + year);
+
+
+        message = findViewById(R.id.message);
+
+        moodButton = findViewById(R.id.imageButton);
+        moodButton1 = findViewById(R.id.imageButton2);
+        moodButton2 = findViewById(R.id.imageButton3);
+        moodButton3 = findViewById(R.id.imageButton4);
+        moodButton4 = findViewById(R.id.imageButton5);
+
+        //database
+        dbh =new DBHelper(this);
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -41,15 +63,37 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
                 finish();
                 break;
             case R.id.diarySaveButton:
-                saveDataOnDatabase();
+
+                boolean IsSucceed = dbh.AddData(message.getText().toString());
+                if (IsSucceed){
+                    Toast.makeText(this, "Data Saved in " + day + "-" + month + "-" + year, Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(this, "Data Can't Save ", Toast.LENGTH_SHORT).show();
+                }
                 finish();
                 break;
         }
     }
+    public String checkmood(View v){
 
-    private void saveDataOnDatabase(){
-
-        Toast.makeText(this, "Data Saved in " + day + "-" + month + "-" + year
-                , Toast.LENGTH_SHORT).show();
+        switch (v.getId()){
+            case R.id.imageButton:
+                mood = "happy";
+                break;
+            case R.id.imageButton2:
+                mood = "smile";
+                break;
+            case R.id.imageButton3:
+                mood = "normal";
+                break;
+            case R.id.imageButton4:
+                mood = "sad";
+                break;
+            case R.id.imageButton5:
+                mood = "notok";
+                break;
+        }
+        return mood;
     }
+
 }
