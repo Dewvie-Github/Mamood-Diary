@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/calendar_bg"
+    android:background="@drawable/bg"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
@@ -76,7 +76,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_weight="8"
-            android:background="@drawable/calendar_cell_bg"
+            android:background="@drawable/calendar_noted_cell_bg"
             android:backgroundTint="#326E6481"
             android:orientation="vertical"
             android:paddingLeft="10dp"
