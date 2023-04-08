@@ -108,13 +108,18 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    private void init(){
+    private void init() {
         intent = getIntent();
-
         day = intent.getIntExtra("day", -1);
         month = intent.getIntExtra("month", -1);
         year = intent.getIntExtra("year", -1);
 
+        initUI();
+        initDatabase();
+        initMediaPlayer();
+    }
+
+    private void initUI() {
         diaryBackButton = findViewById(R.id.diaryBackButton);
         diarySaveButton = findViewById(R.id.diarySaveButton);
         diaryBackButton.setOnClickListener(this);
@@ -132,17 +137,22 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
         moodButton3.setOnClickListener(this);
         moodButton4.setOnClickListener(this);
         moodButton5.setOnClickListener(this);
+    }
 
-        //database
+    private void initDatabase() {
         dbh = new DBHelper(this);
+    }
 
+    private void initMediaPlayer() {
         mediaPlayer = MediaPlayer.create(this, R.raw.click);
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
-                if(mediaPlayer != null)
+                if (mediaPlayer != null)
                     mediaPlayer.release();
             }
         });
     }
+
+
 }
