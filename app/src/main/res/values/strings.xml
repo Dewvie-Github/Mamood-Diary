@@ -13,6 +13,6 @@
     <string name="sad">mood_sad</string>
     <string name="notok">mood_notok</string>
 
-
+    <integer name="slide_animation_duration">200</integer>
 
 </resources>
