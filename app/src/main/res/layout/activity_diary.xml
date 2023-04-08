@@ -204,7 +204,7 @@
             android:id="@+id/imageView9"
             android:layout_width="match_parent"
             android:layout_height="83dp"
-            app:srcCompat="@drawable/decoratecat" />
+            app:srcCompat="@drawable/decorate_cat" />
 
         <Button
             android:id="@+id/diarySaveButton"

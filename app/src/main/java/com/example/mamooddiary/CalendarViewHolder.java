@@ -1,16 +1,10 @@
 package com.example.mamooddiary;
 
-import android.content.Context;
-import android.graphics.Color;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -41,7 +35,7 @@ public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.
             dayOfMonth = itemView.findViewById(R.id.cellEmptyDayText);;
         }
         // default day
-        else if ( !isNotedDay(day, monthOfDay, yearOfDay)){
+        else if ( !isDairyDay(day, monthOfDay, yearOfDay)){
             parentLayout = itemView.findViewById(R.id.parent_default_layout);
             dayOfMonth = itemView.findViewById(R.id.cellDefaultDayText);
             itemView.setOnClickListener(this);
@@ -85,7 +79,7 @@ public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.
                 day, monthOfDay, yearOfDay );
     }
 
-    public static boolean isNotedDay(int day, int monthOfDay, int yearOfDay) {
+    public static boolean isDairyDay(int day, int monthOfDay, int yearOfDay) {
         // this is sql but now it mockup
         // like SELECT * FROM my_table WHERE day = day AND month = monthOfDay AND year = yearOfDay;
         for (MockNote note : MockData.getMockNotes()) {
