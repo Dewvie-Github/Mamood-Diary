@@ -95,7 +95,9 @@ public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.
     public static String getMoodTypeByDate(Context context, int day, int monthOfDay, int yearOfDay) {
         String mood = "";
 
-       DBHelper dbHelper = new DBHelper();
+        DBHelper dbHelper = new DBHelper(context);
+
+        mood = dbHelper.selectMood(String.valueOf(day), String.valueOf(monthOfDay),String.valueOf(yearOfDay));
 
         return mood;
     }

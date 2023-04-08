@@ -56,7 +56,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
     public String  selectMood(String day,String month,String year){
 
-        String selectmood = "SELECT mood FROM notes WHERE day = ? AND month = ? AND year = ?";
+        String selectmood = "SELECT mood FROM Mytable WHERE day = ? AND month = ? AND year = ?";
         String mood = "";
 
         String[] args = new String[] { String.valueOf(day), String.valueOf(month), String.valueOf(year) };
