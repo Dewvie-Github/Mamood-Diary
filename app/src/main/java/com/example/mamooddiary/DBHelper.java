@@ -17,7 +17,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String col_4 ="year";
     public static final String col_5 ="message";
     public static final String col_6 ="mood";
-    public SQLiteDatabase db = this.getWritableDatabase();
+    public SQLiteDatabase db;
 
 
 
@@ -39,7 +39,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public boolean AddData(String day,String month,String year,String message,String mood){
-
+        db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(col_2,day);
         contentValues.put(col_3,month);
@@ -48,6 +48,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(col_6,mood);
 
         long result = db.insert(table_name,null,contentValues);
+        db.close();
         if(result == -1){
             return false;
         }else {
@@ -56,7 +57,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public String  selectMood(String day,String month,String year){
-
+        db = this.getWritableDatabase();
         String selectmood = "SELECT mood FROM Mytable WHERE day = ? AND month = ? AND year = ?";
         String mood = "";
 
@@ -73,7 +74,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return mood;
     }
     public String[] selectDiary(String day, String month, String year){
-
+        db = this.getWritableDatabase();
         String selectmood = "SELECT message,mood FROM Mytable WHERE day = ? AND month = ? AND year = ?";
         String message = "";
         String mood = "";
@@ -95,16 +96,19 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
-    public boolean updateDiary(String id, String day, String month, String year){
+    public boolean updateDiary(String day, String month, String year, String message, String mood) {
+        db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(col_2,day);
-        contentValues.put(col_3,month);
-        contentValues.put(col_4,year);
-      long result = db.update(table_name,new ContentValues(),"id=?",new String[]{id});
-      if (result == 1){
-          return false;
-      }else {
-          return true;
-      }
+        contentValues.put(col_5, message);
+        contentValues.put(col_6, mood);
+
+        String selection = "day = ? AND month = ? AND year = ?";
+        String[] selectionArgs = new String[]{day, month, year};
+
+        int result = db.update(table_name, contentValues, selection, selectionArgs);
+
+        db.close();
+        return result > 0;
     }
+
 }

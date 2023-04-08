@@ -12,8 +12,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.time.LocalDate;
-
 
 public class DiaryActivity extends AppCompatActivity implements View.OnClickListener {
     DBHelper dbh;
@@ -21,14 +19,15 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
     TextView diaryBackButton, diarySaveButton;
     ImageButton moodButton5,moodButton1,moodButton2,moodButton3,moodButton4;
 
-    String mood;
+    String mood, diaryString;
 
-    EditText message;
+    EditText diaryEditText;
 
     Intent intent;
 
     MediaPlayer mediaPlayer;
 
+    QueryType queryType;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,30 +39,19 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
     @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
-        checkMood(v.getId());
+        setMoodById(v.getId());
         switch (v.getId()){
             case R.id.diaryBackButton:
                 finish();
                 break;
             case R.id.diarySaveButton:
-                boolean IsSucceed = dbh.AddData(
-                        String.valueOf( day ),
-                        String.valueOf( month ),
-                        String.valueOf( year ),
-                        message.getText().toString(),
-                        mood);
-                if (IsSucceed){
-                    mediaPlayer.start();
-                    Toast.makeText(this, "Data Saved in " + day + "-" + month + "-" + year + "mood:" + mood, Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(this, "Data Can't Save ", Toast.LENGTH_SHORT).show();
-                }
+                queryDatabase();
 
                 finish();
                 break;
         }
     }
-    public String checkMood(int id){
+    public String setMoodById(int id){
         switch (id){
             case R.id.happyImageButton:
                 mood = "happy";
@@ -94,6 +82,31 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
         return mood;
     }
 
+    public void setMoodButton(String mood){
+        switch (mood){
+            case "happy":
+                unselectedButton();
+                moodButton1.setSelected(true);
+                break;
+            case "smile":
+                unselectedButton();
+                moodButton2.setSelected(true);
+                break;
+            case "normal":
+                unselectedButton();
+                moodButton3.setSelected(true);
+                break;
+            case "notok":
+                unselectedButton();
+                moodButton4.setSelected(true);
+                break;
+            case "sad":
+                unselectedButton();
+                moodButton5.setSelected(true);
+                break;
+        }
+    }
+
     public void unselectedButton(){
         moodButton1.setSelected(false);
         moodButton2.setSelected(false);
@@ -117,6 +130,11 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
         initUI();
         initDatabase();
         initMediaPlayer();
+
+        if (queryType == QueryType.UPDATE){
+            setMoodButton(mood);
+            diaryEditText.setText(diaryString);
+        }
     }
 
     private void initUI() {
@@ -125,7 +143,7 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
         diaryBackButton.setOnClickListener(this);
         diarySaveButton.setOnClickListener(this);
 
-        message = findViewById(R.id.diaryEditText);
+        diaryEditText = findViewById(R.id.diaryEditText);
 
         moodButton1 = findViewById(R.id.happyImageButton);
         moodButton2 = findViewById(R.id.smileImageButton);
@@ -141,6 +159,7 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
 
     private void initDatabase() {
         dbh = new DBHelper(this);
+        initQueryType();
     }
 
     private void initMediaPlayer() {
@@ -153,6 +172,44 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
             }
         });
     }
+    private void initQueryType(){
+        // return data is { "message", "mood", "true" or "false" }
+        String[] diarys = dbh.selectDiary(String.valueOf(day), String.valueOf(month), String.valueOf(year));
 
+        diaryString = diarys[0];
+        mood = diarys[1];
 
+        if(diarys[2].equals("false")){
+            queryType = QueryType.INSERT;
+        }else
+            queryType = QueryType.UPDATE;
+
+    }
+
+    private enum QueryType{
+        INSERT,
+        UPDATE
+    }
+
+    private Boolean queryDatabase(){
+        switch (queryType){
+            case INSERT:
+                dbh.AddData(
+                        String.valueOf( day ),
+                        String.valueOf( month ),
+                        String.valueOf( year ),
+                        diaryEditText.getText().toString(),
+                        mood);
+                break;
+            case UPDATE:
+                dbh.updateDiary(
+                        String.valueOf( day ),
+                        String.valueOf( month ),
+                        String.valueOf( year ),
+                        diaryEditText.getText().toString(), mood);
+                break;
+        }
+
+        return true;
+    }
 }
