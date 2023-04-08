@@ -33,42 +33,7 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary);
-
-        intent = getIntent();
-
-        day = intent.getIntExtra("day", -1);
-        month = intent.getIntExtra("month", -1);
-        year = intent.getIntExtra("year", -1);
-
-        diaryBackButton = findViewById(R.id.diaryBackButton);
-        diarySaveButton = findViewById(R.id.diarySaveButton);
-        diaryBackButton.setOnClickListener(this);
-        diarySaveButton.setOnClickListener(this);
-
-        message = findViewById(R.id.diaryEditText);
-
-        moodButton1 = findViewById(R.id.happyImageButton);
-        moodButton2 = findViewById(R.id.smileImageButton);
-        moodButton3 = findViewById(R.id.normalImageButton);
-        moodButton4 = findViewById(R.id.notOkImageButton);
-        moodButton5 = findViewById(R.id.sadImageButton);
-        moodButton1.setOnClickListener(this);
-        moodButton2.setOnClickListener(this);
-        moodButton3.setOnClickListener(this);
-        moodButton4.setOnClickListener(this);
-        moodButton5.setOnClickListener(this);
-
-        //database
-        dbh = new DBHelper(this);
-
-        mediaPlayer = MediaPlayer.create(this, R.raw.click);
-        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mediaPlayer) {
-                if(mediaPlayer != null)
-                    mediaPlayer.release();
-            }
-        });
+        init();
         closeActionBar();
     }
 
@@ -143,5 +108,41 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    private void init(){
+        intent = getIntent();
 
+        day = intent.getIntExtra("day", -1);
+        month = intent.getIntExtra("month", -1);
+        year = intent.getIntExtra("year", -1);
+
+        diaryBackButton = findViewById(R.id.diaryBackButton);
+        diarySaveButton = findViewById(R.id.diarySaveButton);
+        diaryBackButton.setOnClickListener(this);
+        diarySaveButton.setOnClickListener(this);
+
+        message = findViewById(R.id.diaryEditText);
+
+        moodButton1 = findViewById(R.id.happyImageButton);
+        moodButton2 = findViewById(R.id.smileImageButton);
+        moodButton3 = findViewById(R.id.normalImageButton);
+        moodButton4 = findViewById(R.id.notOkImageButton);
+        moodButton5 = findViewById(R.id.sadImageButton);
+        moodButton1.setOnClickListener(this);
+        moodButton2.setOnClickListener(this);
+        moodButton3.setOnClickListener(this);
+        moodButton4.setOnClickListener(this);
+        moodButton5.setOnClickListener(this);
+
+        //database
+        dbh = new DBHelper(this);
+
+        mediaPlayer = MediaPlayer.create(this, R.raw.click);
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                if(mediaPlayer != null)
+                    mediaPlayer.release();
+            }
+        });
+    }
 }
