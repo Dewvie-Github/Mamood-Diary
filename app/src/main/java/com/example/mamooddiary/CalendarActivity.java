@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -14,19 +13,15 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
 
-public class MainActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener, View.OnClickListener{
+public class CalendarActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener, View.OnClickListener{
 
     private TextView monthTextview, yearTextview;
     private RecyclerView calendarRecyclerView;
@@ -40,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_calendar);
         initWidgets();
         selectedDate = LocalDate.now();
         setMonthView();
@@ -165,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
 //                setMonthView();
 //                break;
             case R.id.btnBackToSplash:
-                startActivity(new Intent(MainActivity.this, SplashActivity.class));
+                startActivity(new Intent(CalendarActivity.this, SplashActivity.class));
                 finish();
                 break;
             case R.id.monthTextView:

@@ -1,8 +1,6 @@
 package com.example.mamooddiary;
 
-import android.content.Context;
 import android.content.Intent;
-import android.media.MediaParser;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
@@ -34,7 +32,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view) {
         if (view.getId() == R.id.btnStart) {
             mediaPlayer.start();
-            startActivity(new Intent(SplashActivity.this, MainActivity.class));
+            startActivity(new Intent(SplashActivity.this, CalendarActivity.class));
             finish();
         }
         if (view.getId() == R.id.btnLearnMore) {
