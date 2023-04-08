@@ -95,12 +95,12 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/imageView14"
+                android:id="@+id/happyImageView"
                 android:layout_width="80dp"
                 android:layout_height="78dp"
                 android:layout_marginBottom="52dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/imageView18"
+                app:layout_constraintEnd_toStartOf="@+id/smileImageView"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/monthTextView4"
@@ -108,50 +108,50 @@
                 app:srcCompat="@drawable/cat_happy" />
 
             <ImageView
-                android:id="@+id/imageView18"
+                android:id="@+id/smileImageView"
                 android:layout_width="80dp"
                 android:layout_height="78dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="55dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/imageView15"
-                app:layout_constraintStart_toEndOf="@+id/imageView14"
+                app:layout_constraintEnd_toStartOf="@+id/normalImageView"
+                app:layout_constraintStart_toEndOf="@+id/happyImageView"
                 app:layout_constraintTop_toBottomOf="@+id/monthTextView4"
                 app:srcCompat="@drawable/cat_smile" />
 
             <ImageView
-                android:id="@+id/imageView15"
+                android:id="@+id/normalImageView"
                 android:layout_width="80dp"
                 android:layout_height="78dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="55dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/imageView16"
-                app:layout_constraintStart_toEndOf="@+id/imageView18"
+                app:layout_constraintEnd_toStartOf="@+id/notOkImageView"
+                app:layout_constraintStart_toEndOf="@+id/smileImageView"
                 app:layout_constraintTop_toBottomOf="@+id/monthTextView4"
                 app:srcCompat="@drawable/cat_normal" />
 
             <ImageView
-                android:id="@+id/imageView16"
+                android:id="@+id/notOkImageView"
                 android:layout_width="80dp"
                 android:layout_height="78dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="55dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/imageView17"
-                app:layout_constraintStart_toEndOf="@+id/imageView15"
+                app:layout_constraintEnd_toStartOf="@+id/sadImageView"
+                app:layout_constraintStart_toEndOf="@+id/normalImageView"
                 app:layout_constraintTop_toBottomOf="@+id/monthTextView4"
                 app:srcCompat="@drawable/cat_not_ok" />
 
             <ImageView
-                android:id="@+id/imageView17"
+                android:id="@+id/sadImageView"
                 android:layout_width="80dp"
                 android:layout_height="78dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="55dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView16"
+                app:layout_constraintStart_toEndOf="@+id/notOkImageView"
                 app:layout_constraintTop_toBottomOf="@+id/monthTextView4"
                 app:srcCompat="@drawable/cat_sad" />
 
@@ -169,81 +169,59 @@
         android:layout_height="264dp"
         android:background="@drawable/calendar_noted_cell_bg"
         android:backgroundTint="#32EEECF1"
-        android:orientation="horizontal">
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/monthTextView5"
+            android:layout_width="309dp"
+            android:layout_height="44dp"
+            android:layout_gravity="center"
+            android:text="Today's note"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/diaryEditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:background="@drawable/diary_bg"
+            android:ems="10"
+            android:gravity="top"
+            android:hint="How was your day?"
+            android:inputType="textCapSentences|textMultiLine"
+            android:imeOptions="actionDone"
+            android:padding="10dp"
+            android:textColor="#676666" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="309dp"
             android:layout_weight="1">
 
-            <TextView
-                android:id="@+id/monthTextView5"
-                android:layout_width="309dp"
-                android:layout_height="44dp"
-                android:text="Today's note"
-                android:textAlignment="center"
-                android:textColor="#FFFFFF"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.015" />
-
-            <ImageView
-                android:id="@+id/imageView23"
-                android:layout_width="432dp"
-                android:layout_height="299dp"
-                android:layout_marginTop="4dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.523"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/bg1" />
-
-            <EditText
-                android:id="@+id/editTextTextPersonName2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Note"
-                android:inputType="textPersonName"
-                android:textColor="#676666"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView23"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/monthTextView5" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 
-    <LinearLayout
+    <Button
+        android:id="@+id/diarySaveButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#339E9E9E"
+        android:text="SAVE"
+        android:textAlignment="center"
+        android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/textView10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/diarySaveButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#339E9E9E"
-            android:text="SAVE"
-            android:textAlignment="center"
-            android:textSize="16sp" />
-    </LinearLayout>
+    <ImageView
+        android:id="@+id/imageView23"
+        android:layout_width="432dp"
+        android:layout_height="299dp"
+        android:layout_marginTop="4dp"
+        android:visibility="gone"
+        app:srcCompat="@drawable/bg1" />
 
 </LinearLayout>

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,7 +19,7 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
     DBHelper dbh;
     private int day, month, year;
     TextView diaryBackButton, diarySaveButton;
-    ImageButton moodButton,moodButton1,moodButton2,moodButton3,moodButton4;
+    ImageView moodButton5,moodButton1,moodButton2,moodButton3,moodButton4;
 
     String mood;
 
@@ -29,7 +30,7 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.mock_activity_diary);
+        setContentView(R.layout.activity_diary);
 
         intent = getIntent();
 
@@ -42,21 +43,27 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
         diaryBackButton.setOnClickListener(this);
         diarySaveButton.setOnClickListener(this);
 
-        message = findViewById(R.id.message);
+        message = findViewById(R.id.diaryEditText);
 
-        moodButton = findViewById(R.id.imageButton);
-        moodButton1 = findViewById(R.id.imageButton2);
-        moodButton2 = findViewById(R.id.imageButton3);
-        moodButton3 = findViewById(R.id.imageButton4);
-        moodButton4 = findViewById(R.id.imageButton5);
+        moodButton1 = findViewById(R.id.happyImageView);
+        moodButton2 = findViewById(R.id.smileImageView);
+        moodButton3 = findViewById(R.id.normalImageView);
+        moodButton4 = findViewById(R.id.notOkImageView);
+        moodButton5 = findViewById(R.id.sadImageView);
+        moodButton1.setOnClickListener(this);
+        moodButton2.setOnClickListener(this);
+        moodButton3.setOnClickListener(this);
+        moodButton4.setOnClickListener(this);
+        moodButton5.setOnClickListener(this);
 
         //database
-        dbh =new DBHelper(this);
+        dbh = new DBHelper(this);
     }
 
     @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
+        checkMood(v.getId());
         switch (v.getId()){
             case R.id.diaryBackButton:
                 finish();
@@ -77,22 +84,21 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
                 break;
         }
     }
-    public String checkMood(View v){
-
-        switch (v.getId()){
-            case R.id.imageButton:
+    public String checkMood(int id){
+        switch (id){
+            case R.id.happyImageView:
                 mood = "happy";
                 break;
-            case R.id.imageButton2:
+            case R.id.smileImageView:
                 mood = "smile";
                 break;
-            case R.id.imageButton3:
+            case R.id.normalImageView:
                 mood = "normal";
                 break;
-            case R.id.imageButton4:
+            case R.id.sadImageView:
                 mood = "sad";
                 break;
-            case R.id.imageButton5:
+            case R.id.notOkImageView:
                 mood = "notok";
                 break;
         }
