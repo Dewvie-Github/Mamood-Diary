@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,47 +32,50 @@ public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.
         this.monthOfDay = monthOfDay;
         this.yearOfDay = yearOfDay;
 
-
-        if (day == -1){
+        if (day == -1) {
             parentLayout = itemView.findViewById(R.id.parent_empty_layout);
-            dayOfMonth = itemView.findViewById(R.id.cellEmptyDayText);;
-        }
-        // default day
-        else if ( !isDairyDay(itemView.getContext(),day, monthOfDay, yearOfDay)){
+            dayOfMonth = itemView.findViewById(R.id.cellEmptyDayText);
+        } else if (!isDairyDay(itemView.getContext(), day, monthOfDay, yearOfDay)) {
             parentLayout = itemView.findViewById(R.id.parent_default_layout);
             dayOfMonth = itemView.findViewById(R.id.cellDefaultDayText);
             itemView.setOnClickListener(this);
+        } else {
+            System.out.println("TEXT: " + day + "-" + monthOfDay + "-" + yearOfDay);
+            switch (getMoodTypeByDate(itemView.getContext(), day, monthOfDay, yearOfDay)) {
+                case "happy":
+                    parentLayout = itemView.findViewById(R.id.parent_happy_layout);
+                    dayOfMonth = itemView.findViewById(R.id.cellHappyDayText);
+                    itemView.setOnClickListener(this);
+                    break;
+                case "normal":
+                    parentLayout = itemView.findViewById(R.id.parent_normal_layout);
+                    dayOfMonth = itemView.findViewById(R.id.cellNormalDayText);
+                    itemView.setOnClickListener(this);
+                    break;
+                case "notok":
+                    parentLayout = itemView.findViewById(R.id.parent_notok_layout);
+                    dayOfMonth = itemView.findViewById(R.id.cellNotokDayText);
+                    itemView.setOnClickListener(this);
+                    break;
+                case "sad":
+                    parentLayout = itemView.findViewById(R.id.parent_sad_layout);
+                    dayOfMonth = itemView.findViewById(R.id.cellSadDayText);
+                    itemView.setOnClickListener(this);
+                    break;
+                case "smile":
+                    parentLayout = itemView.findViewById(R.id.parent_smile_layout);
+                    dayOfMonth = itemView.findViewById(R.id.cellSmileDayText);
+                    itemView.setOnClickListener(this);
+                    break;
+                default:
+                    parentLayout = itemView.findViewById(R.id.parent_default_layout);
+                    dayOfMonth = itemView.findViewById(R.id.cellDefaultDayText);
+                    itemView.setOnClickListener(this);
+                    break;
+            }
         }
-        switch (getMoodTypeByDate(itemView.getContext() ,day,monthOfDay,yearOfDay)){
-            case "happy":
-                parentLayout = itemView.findViewById(R.id.parent_happy_layout);
-                dayOfMonth = itemView.findViewById(R.id.cellHappyDayText);
-                itemView.setOnClickListener(this);
-                break;
-            case "normal":
-                parentLayout = itemView.findViewById(R.id.parent_normal_layout);
-                dayOfMonth = itemView.findViewById(R.id.cellNormalDayText);
-                itemView.setOnClickListener(this);
-                break;
-            case "notok":
-                parentLayout = itemView.findViewById(R.id.parent_notok_layout);
-                dayOfMonth = itemView.findViewById(R.id.cellNotokDayText);
-                itemView.setOnClickListener(this);
-                break;
-            case "sad":
-                parentLayout = itemView.findViewById(R.id.parent_sad_layout);
-                dayOfMonth = itemView.findViewById(R.id.cellSadDayText);
-                itemView.setOnClickListener(this);
-                break;
-            case "smile":
-                parentLayout = itemView.findViewById(R.id.parent_smile_layout);
-                dayOfMonth = itemView.findViewById(R.id.cellSmileDayText);
-                itemView.setOnClickListener(this);
-                break;
-        }
-
-        // System.out.println("Day:" + day + " WOW: " + parentLayout.getContext().getResources().getResourceEntryName((dayOfMonth.getId())));
     }
+
 
     @Override
     public void onClick(View v) {
@@ -86,7 +90,7 @@ public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.
 
         DBHelper dbHelper = new DBHelper(context);
         String mood =dbHelper.selectMood(String.valueOf(day), String.valueOf(monthOfDay), String.valueOf(yearOfDay));
-        if (mood.equals("")) {
+        if (mood == null || mood.isEmpty()) {
             return false;
         }
         return true;

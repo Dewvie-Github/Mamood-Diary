@@ -48,12 +48,13 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(col_6,mood);
 
         long result = db.insert(table_name,null,contentValues);
-        if(result == 1){
+        if(result == -1){
             return false;
         }else {
             return true;
         }
     }
+
     public String  selectMood(String day,String month,String year){
 
         String selectmood = "SELECT mood FROM Mytable WHERE day = ? AND month = ? AND year = ?";
