@@ -62,162 +62,170 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="158dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/calendar_noted_cell_bg"
-        android:backgroundTint="#32EEECF1"
-        android:orientation="horizontal">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_height="match_parent">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="188dp">
-
-            <TextView
-                android:id="@+id/monthTextView4"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="5dp"
-                android:layout_weight="1"
-                android:text="How was your day?"
-                android:textAlignment="center"
-                android:textColor="#FFFFFF"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_height="158dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/calendar_noted_cell_bg"
+                android:backgroundTint="#32EEECF1"
+                android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/happyImageView"
-                android:layout_width="70dp"
-                android:layout_height="68dp"
-                android:layout_marginBottom="52dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/smileImageView"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/monthTextView4"
-                app:layout_constraintVertical_bias="0.652"
-                app:srcCompat="@drawable/cat_happy" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="188dp">
 
-            <ImageView
-                android:id="@+id/smileImageView"
-                android:layout_width="70dp"
-                android:layout_height="68dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="55dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/normalImageView"
-                app:layout_constraintStart_toEndOf="@+id/happyImageView"
-                app:layout_constraintTop_toBottomOf="@+id/monthTextView4"
-                app:srcCompat="@drawable/cat_smile" />
+                    <TextView
+                        android:id="@+id/monthTextView4"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:text="How was your day?"
+                        android:textAlignment="center"
+                        android:textColor="#FFFFFF"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/normalImageView"
-                android:layout_width="70dp"
-                android:layout_height="68dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="55dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/notOkImageView"
-                app:layout_constraintStart_toEndOf="@+id/smileImageView"
-                app:layout_constraintTop_toBottomOf="@+id/monthTextView4"
-                app:srcCompat="@drawable/cat_normal" />
+                    <ImageView
+                        android:id="@+id/happyImageView"
+                        android:layout_width="70dp"
+                        android:layout_height="68dp"
+                        android:layout_marginBottom="52dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/smileImageView"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/monthTextView4"
+                        app:layout_constraintVertical_bias="0.652"
+                        app:srcCompat="@drawable/cat_happy" />
 
-            <ImageView
-                android:id="@+id/notOkImageView"
-                android:layout_width="70dp"
-                android:layout_height="68dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="55dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/sadImageView"
-                app:layout_constraintStart_toEndOf="@+id/normalImageView"
-                app:layout_constraintTop_toBottomOf="@+id/monthTextView4"
-                app:srcCompat="@drawable/cat_not_ok" />
+                    <ImageView
+                        android:id="@+id/smileImageView"
+                        android:layout_width="70dp"
+                        android:layout_height="68dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="55dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/normalImageView"
+                        app:layout_constraintStart_toEndOf="@+id/happyImageView"
+                        app:layout_constraintTop_toBottomOf="@+id/monthTextView4"
+                        app:srcCompat="@drawable/cat_smile" />
 
-            <ImageView
-                android:id="@+id/sadImageView"
-                android:layout_width="70dp"
-                android:layout_height="68dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="55dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/notOkImageView"
-                app:layout_constraintTop_toBottomOf="@+id/monthTextView4"
-                app:srcCompat="@drawable/cat_sad" />
+                    <ImageView
+                        android:id="@+id/normalImageView"
+                        android:layout_width="70dp"
+                        android:layout_height="68dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="55dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/notOkImageView"
+                        app:layout_constraintStart_toEndOf="@+id/smileImageView"
+                        app:layout_constraintTop_toBottomOf="@+id/monthTextView4"
+                        app:srcCompat="@drawable/cat_normal" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                    <ImageView
+                        android:id="@+id/notOkImageView"
+                        android:layout_width="70dp"
+                        android:layout_height="68dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="55dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/sadImageView"
+                        app:layout_constraintStart_toEndOf="@+id/normalImageView"
+                        app:layout_constraintTop_toBottomOf="@+id/monthTextView4"
+                        app:srcCompat="@drawable/cat_not_ok" />
 
-    </LinearLayout>
+                    <ImageView
+                        android:id="@+id/sadImageView"
+                        android:layout_width="70dp"
+                        android:layout_height="68dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="55dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/notOkImageView"
+                        app:layout_constraintTop_toBottomOf="@+id/monthTextView4"
+                        app:srcCompat="@drawable/cat_sad" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="397dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/calendar_noted_cell_bg"
-        android:backgroundTint="#32EEECF1"
-        android:orientation="vertical">
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/monthTextView5"
-            android:layout_width="309dp"
-            android:layout_height="44dp"
-            android:layout_gravity="center"
-            android:text="Today's note"
-            android:textAlignment="center"
-            android:textColor="#FFFFFF"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            </LinearLayout>
 
-        <EditText
-            android:id="@+id/diaryEditText"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:background="@drawable/diary_bg"
-            android:ems="10"
-            android:gravity="top"
-            android:hint="Add note"
-            android:imeOptions="actionDone"
-            android:inputType="textCapSentences|textMultiLine"
-            android:padding="10dp"
-            android:textColor="#676666" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="397dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/calendar_noted_cell_bg"
+                android:backgroundTint="#32EEECF1"
+                android:orientation="vertical">
 
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/monthTextView5"
+                    android:layout_width="309dp"
+                    android:layout_height="44dp"
+                    android:layout_gravity="center"
+                    android:text="Today's note"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+                <EditText
+                    android:id="@+id/diaryEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/diary_bg"
+                    android:ems="10"
+                    android:gravity="top"
+                    android:hint="Add note"
+                    android:imeOptions="actionDone"
+                    android:inputType="textCapSentences|textMultiLine"
+                    android:padding="10dp"
+                    android:textColor="#676666" />
 
-        <ImageView
-            android:id="@+id/imageView9"
-            android:layout_width="match_parent"
-            android:layout_height="83dp"
-            app:srcCompat="@drawable/decorate_cat" />
+            </LinearLayout>
 
-        <Button
-            android:id="@+id/diarySaveButton"
-            android:layout_width="match_parent"
-            android:layout_height="90dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:backgroundTint="#1A1028"
-            android:text="SAVE"
-            android:textAlignment="center"
-            android:verticalScrollbarPosition="defaultPosition"
-            android:textSize="24sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-    </LinearLayout>
+                <ImageView
+                    android:id="@+id/imageView9"
+                    android:layout_width="match_parent"
+                    android:layout_height="83dp"
+                    app:srcCompat="@drawable/decorate_cat" />
 
+                <Button
+                    android:id="@+id/diarySaveButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:backgroundTint="#1A1028"
+                    android:text="SAVE"
+                    android:textAlignment="center"
+                    android:verticalScrollbarPosition="defaultPosition"
+                    android:textSize="24sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
