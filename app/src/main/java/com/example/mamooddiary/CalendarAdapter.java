@@ -50,7 +50,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder> {
         if ( day == -1 ){
             view = inflater.inflate(R.layout.calendar_empty_cell, parent, false);
         }
-        else if(!CalendarViewHolder.isNotedDay(day, monthOfDay, yearOfDay)){
+        else if(!CalendarViewHolder.isDairyDay(day, monthOfDay, yearOfDay)){
             view = inflater.inflate(R.layout.calendar_default_cell, parent, false);
         }else if (mood.equals("happy")){
             view = inflater.inflate(R.layout.calendar_happy_cell, parent, false);
