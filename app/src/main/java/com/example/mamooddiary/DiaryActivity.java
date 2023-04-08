@@ -22,26 +22,25 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
 
     String mood;
 
-
     EditText message;
+
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mock_activity_diary);
 
+        intent = getIntent();
 
-        Intent intent = getIntent();
-        String day = intent.getStringExtra("day");
-        String month = intent.getStringExtra("month");
-        String year = intent.getStringExtra("year");
-
+        day = intent.getIntExtra("day", -1);
+        month = intent.getIntExtra("month", -1);
+        year = intent.getIntExtra("year", -1);
 
         diaryBackButton = findViewById(R.id.diaryBackButton);
         diarySaveButton = findViewById(R.id.diarySaveButton);
         diaryBackButton.setOnClickListener(this);
         diarySaveButton.setOnClickListener(this);
-
 
         message = findViewById(R.id.message);
 
@@ -63,10 +62,14 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
                 finish();
                 break;
             case R.id.diarySaveButton:
-
-                boolean IsSucceed = dbh.AddData(message.getText().toString());
+                boolean IsSucceed = dbh.AddData(
+                        message.getText().toString(),
+                        String.valueOf( day ),
+                        String.valueOf( month ),
+                        String.valueOf( year ),
+                        mood);
                 if (IsSucceed){
-                    Toast.makeText(this, "Data Saved in " + day + "-" + month + "-" + year, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Data Saved in " + day + "-" + month + "-" + year + "mood:" + mood, Toast.LENGTH_SHORT).show();
                 }else {
                     Toast.makeText(this, "Data Can't Save ", Toast.LENGTH_SHORT).show();
                 }
@@ -74,7 +77,7 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
                 break;
         }
     }
-    public String checkmood(View v){
+    public String checkMood(View v){
 
         switch (v.getId()){
             case R.id.imageButton:

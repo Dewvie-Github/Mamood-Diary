@@ -144,7 +144,13 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
     @Override
     public void onItemClick(int position, String dayText, int day, int month, int year) {
         if(!dayText.equals("")) {
-            startActivity(startDiaryActivity(day, month, year));
+            Intent intent = new Intent(this, DiaryActivity.class);
+            intent.putExtra("day", day );
+            intent.putExtra("month", month);
+            intent.putExtra("year", year);
+
+            startActivity(intent);
+
             recreate();
         }
 
@@ -173,14 +179,6 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
                 showDatePickerDialog();
                 break;
         }
-    }
-
-    private Intent startDiaryActivity(int day, int month, int year){
-        Intent intent = new Intent(this, DiaryActivity.class);
-        intent.putExtra("day", day );
-        intent.putExtra("month", month);
-        intent.putExtra("year", year);
-        return intent;
     }
 
     public void closeActionBar() {
