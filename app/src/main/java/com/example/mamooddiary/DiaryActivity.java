@@ -137,13 +137,5 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (mediaPlayer != null) {
-            mediaPlayer.release();
-            mediaPlayer = null;
-        }
-    }
 
 }

@@ -42,16 +42,6 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (mediaPlayer != null) {
-            mediaPlayer.release();
-            mediaPlayer = null;
-        }
-    }
-
-
     public void closeActionBar() {
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();

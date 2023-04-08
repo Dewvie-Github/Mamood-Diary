@@ -270,15 +270,6 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         innerLayout.startAnimation(slideOut);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (mediaPlayer != null) {
-            mediaPlayer.release();
-            mediaPlayer = null;
-        }
-    }
-
 }
 
 
