@@ -1,5 +1,6 @@
 package com.example.mamooddiary;
 
+import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -41,7 +42,7 @@ public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.
             dayOfMonth = itemView.findViewById(R.id.cellDefaultDayText);
             itemView.setOnClickListener(this);
         }
-        switch (getMoodTypeByDate(day,monthOfDay,yearOfDay)){
+        switch (getMoodTypeByDate(parentLayout.getContext() ,day,monthOfDay,yearOfDay)){
             case "happy":
                 parentLayout = itemView.findViewById(R.id.parent_happy_layout);
                 dayOfMonth = itemView.findViewById(R.id.cellHappyDayText);
@@ -91,7 +92,7 @@ public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.
         return false;
     }
 
-    public static String getMoodTypeByDate(int day, int monthOfDay, int yearOfDay) {
+    public static String getMoodTypeByDate(Context context, int day, int monthOfDay, int yearOfDay) {
         String mood = "";
 
        DBHelper dbHelper = new DBHelper();
