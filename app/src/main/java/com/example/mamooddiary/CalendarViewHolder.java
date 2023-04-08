@@ -16,6 +16,7 @@ public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.
     private int monthOfDay;
     private int yearOfDay;
 
+
     private final CalendarAdapter.OnItemListener onItemListener;
     public CalendarViewHolder(@NonNull View itemView,
                               CalendarAdapter.OnItemListener onItemListener,
@@ -93,11 +94,7 @@ public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.
     public static String getMoodTypeByDate(int day, int monthOfDay, int yearOfDay) {
         String mood = "";
 
-        for (MockNote note : MockData.getMockNotes()) {
-            if (note.getDay() == day && note.getMonth() == monthOfDay && note.getYear() == yearOfDay) {
-                mood = note.getMood();
-            }
-        }
+       DBHelper dbHelper = new DBHelper();
 
         return mood;
     }
