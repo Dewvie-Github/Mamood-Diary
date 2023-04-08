@@ -2,6 +2,7 @@ package com.example.mamooddiary;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -26,6 +27,8 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
     EditText message;
 
     Intent intent;
+
+    MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +62,8 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
         //database
         dbh = new DBHelper(this);
 
+        mediaPlayer = MediaPlayer.create(this, R.raw.click);
+
         closeActionBar();
     }
 
@@ -78,6 +83,7 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
                         String.valueOf( year ),
                         mood);
                 if (IsSucceed){
+                    mediaPlayer.start();
                     Toast.makeText(this, "Data Saved in " + day + "-" + month + "-" + year + "mood:" + mood, Toast.LENGTH_SHORT).show();
                 }else {
                     Toast.makeText(this, "Data Can't Save ", Toast.LENGTH_SHORT).show();

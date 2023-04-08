@@ -172,7 +172,6 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
             case R.id.btnBackToSplash:
                 mediaPlayer.start();
                 startActivity(new Intent(MainActivity.this, SplashActivity.class));
-                mediaPlayer.release();
                 finish();
                 break;
             case R.id.monthTextView:
