@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         monthTextview = findViewById(R.id.monthTextView);
         monthTextview.setOnClickListener(this);
         yearTextview = findViewById(R.id.yearTextview);
+        yearTextview.setOnClickListener(this);
 
         btnBackToSplash = (TextView) findViewById(R.id.btnBackToSplash);
         btnBackToSplash.setOnClickListener(this);
@@ -168,6 +169,7 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
                 finish();
                 break;
             case R.id.monthTextView:
+            case R.id.yearTextview:
                 showDatePickerDialog();
                 break;
         }
