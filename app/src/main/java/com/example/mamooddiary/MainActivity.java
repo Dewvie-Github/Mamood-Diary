@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
     private LocalDate oldDate;
 
     //ImageView previousButton, nextButton;
-    Button btnBackToSplash;
+    TextView btnBackToSplash;
     MediaPlayer mediaPlayer;
 
     @Override
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         monthTextview.setOnClickListener(this);
         yearTextview = findViewById(R.id.yearTextview);
 
-        btnBackToSplash = (Button) findViewById(R.id.btnBackToSplash);
+        btnBackToSplash = (TextView) findViewById(R.id.btnBackToSplash);
         btnBackToSplash.setOnClickListener(this);
 
 //        previousButton = findViewById(R.id.previousMonthButton);
@@ -165,7 +165,6 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
 //                setMonthView();
 //                break;
             case R.id.btnBackToSplash:
-                mediaPlayer.start();
                 startActivity(new Intent(MainActivity.this, SplashActivity.class));
                 finish();
                 break;
