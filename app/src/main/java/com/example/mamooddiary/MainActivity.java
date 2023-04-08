@@ -98,7 +98,6 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         calendarRecyclerView.setLayoutManager(layoutManager);
         calendarRecyclerView.setAdapter(calendarAdapter);
 
-        startAnimation(selectedDate, oldDate);
     }
 
 
@@ -201,14 +200,17 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
     }
 
     private void onSwipeLeft() {
+        if (selectedDate.plusMonths(1).getMonthValue() > LocalDate.now().getMonthValue()) return;
         oldDate = selectedDate;
         selectedDate = selectedDate.plusMonths(1);
+        startAnimation(selectedDate, oldDate);
         setMonthView();
     }
 
     private void onSwipeRight() {
         oldDate = selectedDate;
         selectedDate = selectedDate.minusMonths(1);
+        startAnimation(selectedDate, oldDate);
         setMonthView();
     }
 
@@ -279,7 +281,6 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
         calendarRecyclerView.setVisibility(View.INVISIBLE);
         innerLayout.startAnimation(slideOut);
     }
-
 }
 
 
