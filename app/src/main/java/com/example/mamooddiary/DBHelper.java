@@ -92,7 +92,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return new String[] {message, mood} ;
     }
 
-    public boolean UpdateData(String id,String day,String month,String year){
+    public boolean updateDiary(String id, String day, String month, String year){
         ContentValues contentValues = new ContentValues();
         contentValues.put(col_2,day);
         contentValues.put(col_3,month);
