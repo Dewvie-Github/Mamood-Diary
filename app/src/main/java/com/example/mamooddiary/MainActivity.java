@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -63,32 +64,6 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
 //        nextButton = findViewById(R.id.nextMonthButton);
 //        previousButton.setOnClickListener(this);
 //        nextButton.setOnClickListener(this);
-    }
-
-    private void setMonthView() {
-        // set month and year text
-        monthTextview.setText(selectedDate.getMonth().toString().toUpperCase());
-        yearTextview.setText(String.valueOf(selectedDate.getYear()));
-
-        ArrayList<String> daysInMonth = daysInMonthArray(selectedDate);
-
-        CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth,
-                selectedDate.getMonthValue() ,
-                selectedDate.getYear(),
-                this);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 7);
-        calendarRecyclerView.setLayoutManager(layoutManager);
-        calendarRecyclerView.setAdapter(calendarAdapter);
-
-        // animation
-        LinearLayout innerLayout = findViewById(R.id.calendarLayout);
-        Animation slideInLeftWithinInnerBoundsAnimation;
-        if(selectedDate != null && oldDate != null &&  selectedDate.isBefore(oldDate ) )
-            slideInLeftWithinInnerBoundsAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_in_left);
-        else
-            slideInLeftWithinInnerBoundsAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_in_right);
-        // Apply the animation to the inner LinearLayout
-        innerLayout.startAnimation(slideInLeftWithinInnerBoundsAnimation);
 
         // Add the swipe gesture listener to the calendar RecyclerView
         final GestureDetector gestureDetector = new GestureDetector(this, new SwipeGestureListener());
@@ -107,6 +82,26 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
             }
         });
     }
+
+    private void setMonthView() {
+        // set month and year text
+        monthTextview.setText(selectedDate.getMonth().toString().toUpperCase());
+        yearTextview.setText(String.valueOf(selectedDate.getYear()));
+
+        ArrayList<String> daysInMonth = daysInMonthArray(selectedDate);
+
+        CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth,
+                selectedDate.getMonthValue() ,
+                selectedDate.getYear(),
+                this);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 7);
+        calendarRecyclerView.setLayoutManager(layoutManager);
+        calendarRecyclerView.setAdapter(calendarAdapter);
+
+        startAnimation(selectedDate, oldDate);
+    }
+
+
 
     // this return specify position day in calendar
     // If first day of month day is WED
@@ -245,6 +240,46 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
             }
             return false;
         }
+    }
+
+    private void startAnimation(LocalDate selectedDate, LocalDate oldDate) {
+        // animation
+        LinearLayout innerLayout = findViewById(R.id.calendarLayout);
+
+        Animation slideIn, slideOut;
+
+        if ( oldDate == null){
+            innerLayout.startAnimation(AnimationUtils.loadAnimation(this, R.anim.popup));
+            return;
+        }
+        else if(selectedDate != null && selectedDate.isBefore(oldDate)) {
+            slideOut = AnimationUtils.loadAnimation(this, R.anim.slide_out_right);
+            slideIn = AnimationUtils.loadAnimation(this, R.anim.slide_in_left);
+        }
+        else {
+            slideIn = AnimationUtils.loadAnimation(this, R.anim.slide_in_right);
+            slideOut = AnimationUtils.loadAnimation(this, R.anim.slide_out_left);
+            innerLayout.startAnimation(slideIn);
+        }
+
+        slideOut.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                calendarRecyclerView.setVisibility(View.VISIBLE);
+                innerLayout.startAnimation(slideIn);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+        });
+
+        calendarRecyclerView.setVisibility(View.INVISIBLE);
+        innerLayout.startAnimation(slideOut);
     }
 }
 
