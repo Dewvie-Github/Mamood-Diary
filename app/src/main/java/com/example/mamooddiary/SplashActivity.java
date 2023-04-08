@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class SplashActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button btnStart;
+    Button btnStart, btnLearnMore;
     MediaPlayer mediaPlayer;
 
     @Override
@@ -22,6 +22,8 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 
         btnStart = (Button) findViewById(R.id.btnStart);
         btnStart.setOnClickListener(this);
+        btnLearnMore = (Button) findViewById(R.id.btnLearnMore);
+        btnLearnMore.setOnClickListener(this);
 
         mediaPlayer = MediaPlayer.create(this, R.raw.click);
 
@@ -33,6 +35,11 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         if (view.getId() == R.id.btnStart) {
             mediaPlayer.start();
             startActivity(new Intent(SplashActivity.this, MainActivity.class));
+            finish();
+        }
+        if (view.getId() == R.id.btnLearnMore) {
+            mediaPlayer.start();
+            startActivity(new Intent(SplashActivity.this, MoodtrackerActivity.class));
             finish();
         }
     }
