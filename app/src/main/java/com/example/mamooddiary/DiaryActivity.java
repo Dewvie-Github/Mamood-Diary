@@ -58,6 +58,8 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
 
         //database
         dbh = new DBHelper(this);
+
+        closeActionBar();
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -103,6 +105,12 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
                 break;
         }
         return mood;
+    }
+
+    public void closeActionBar() {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
     }
 
 }
