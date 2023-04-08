@@ -72,22 +72,24 @@ public class DBHelper extends SQLiteOpenHelper {
 
         return mood;
     }
-    public String[] selectMessage(String day,String month,String year){
+    public String[] selectDiary(String day, String month, String year){
 
-        String selectmood = "SELECT mood FROM Mytable WHERE day = ? AND month = ? AND year = ?";
+        String selectmood = "SELECT message,mood FROM Mytable WHERE day = ? AND month = ? AND year = ?";
         String message = "";
+        String mood = "";
 
         String[] args = new String[] { String.valueOf(day), String.valueOf(month), String.valueOf(year) };
         Cursor cursor = db.rawQuery(selectmood, args);
 
         if (cursor.moveToFirst()) {
             message = cursor.getString(0);
+            mood = cursor.getString(1);
         }
 
         cursor.close();
         db.close();
 
-        return new String[] {message} ;
+        return new String[] {message, mood} ;
     }
 
     public boolean UpdateData(String id,String day,String month,String year){
