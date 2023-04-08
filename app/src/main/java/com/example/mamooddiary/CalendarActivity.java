@@ -1,6 +1,7 @@
 package com.example.mamooddiary;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -56,11 +57,6 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         btnBackToSplash = (TextView) findViewById(R.id.btnBackToSplash);
         btnBackToSplash.setOnClickListener(this);
 
-//        previousButton = findViewById(R.id.previousMonthButton);
-//        nextButton = findViewById(R.id.nextMonthButton);
-//        previousButton.setOnClickListener(this);
-//        nextButton.setOnClickListener(this);
-
         // Add the swipe gesture listener to the calendar RecyclerView
         final GestureDetector gestureDetector = new GestureDetector(this, new SwipeGestureListener());
         calendarRecyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
@@ -95,7 +91,6 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         calendarRecyclerView.setAdapter(calendarAdapter);
 
     }
-
 
 
     // this return specify position day in calendar
@@ -139,26 +134,21 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
             intent.putExtra("month", month);
             intent.putExtra("year", year);
 
-            startActivity(intent);
-
-            recreate();
+            startActivityForResult(intent, 1);
         }
-
     }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        setMonthView();
+    }
+
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-//            case R.id.previousMonthButton:
-//                oldDate = selectedDate;
-//                selectedDate = selectedDate.minusMonths(1);
-//                setMonthView();
-//                break;
-//            case R.id.nextMonthButton:
-//                oldDate = selectedDate;
-//                selectedDate = selectedDate.plusMonths(1);
-//                setMonthView();
-//                break;
             case R.id.btnBackToSplash:
                 startActivity(new Intent(CalendarActivity.this, SplashActivity.class));
                 finish();

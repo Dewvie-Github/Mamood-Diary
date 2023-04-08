@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,7 +19,7 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
     DBHelper dbh;
     private int day, month, year;
     TextView diaryBackButton, diarySaveButton;
-    ImageView moodButton5,moodButton1,moodButton2,moodButton3,moodButton4;
+    ImageButton moodButton5,moodButton1,moodButton2,moodButton3,moodButton4;
 
     String mood;
 
@@ -48,11 +47,11 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
 
         message = findViewById(R.id.diaryEditText);
 
-        moodButton1 = findViewById(R.id.happyImageView);
-        moodButton2 = findViewById(R.id.smileImageView);
-        moodButton3 = findViewById(R.id.normalImageView);
-        moodButton4 = findViewById(R.id.notOkImageView);
-        moodButton5 = findViewById(R.id.sadImageView);
+        moodButton1 = findViewById(R.id.happyImageButton);
+        moodButton2 = findViewById(R.id.smileImageButton);
+        moodButton3 = findViewById(R.id.normalImageButton);
+        moodButton4 = findViewById(R.id.notOkImageButton);
+        moodButton5 = findViewById(R.id.sadImageButton);
         moodButton1.setOnClickListener(this);
         moodButton2.setOnClickListener(this);
         moodButton3.setOnClickListener(this);
@@ -88,29 +87,48 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
                 }else {
                     Toast.makeText(this, "Data Can't Save ", Toast.LENGTH_SHORT).show();
                 }
+
                 finish();
                 break;
         }
     }
     public String checkMood(int id){
         switch (id){
-            case R.id.happyImageView:
+            case R.id.happyImageButton:
                 mood = "happy";
+                unselectedButton();
+                moodButton1.setSelected(true);
                 break;
-            case R.id.smileImageView:
+            case R.id.smileImageButton:
                 mood = "smile";
+                unselectedButton();
+                moodButton2.setSelected(true);
                 break;
-            case R.id.normalImageView:
+            case R.id.normalImageButton:
                 mood = "normal";
+                unselectedButton();
+                moodButton3.setSelected(true);
                 break;
-            case R.id.sadImageView:
-                mood = "sad";
-                break;
-            case R.id.notOkImageView:
+            case R.id.notOkImageButton:
                 mood = "notok";
+                unselectedButton();
+                moodButton4.setSelected(true);
+                break;
+            case R.id.sadImageButton:
+                mood = "sad";
+                unselectedButton();
+                moodButton5.setSelected(true);
                 break;
         }
         return mood;
+    }
+
+    public void unselectedButton(){
+        moodButton1.setSelected(false);
+        moodButton2.setSelected(false);
+        moodButton3.setSelected(false);
+        moodButton4.setSelected(false);
+        moodButton5.setSelected(false);
     }
 
     public void closeActionBar() {
