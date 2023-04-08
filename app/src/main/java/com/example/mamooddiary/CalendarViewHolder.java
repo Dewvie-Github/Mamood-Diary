@@ -42,7 +42,7 @@ public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.
             dayOfMonth = itemView.findViewById(R.id.cellDefaultDayText);
             itemView.setOnClickListener(this);
         }
-        switch (getMoodTypeByDate(parentLayout.getContext() ,day,monthOfDay,yearOfDay)){
+        switch (getMoodTypeByDate(itemView.getContext() ,day,monthOfDay,yearOfDay)){
             case "happy":
                 parentLayout = itemView.findViewById(R.id.parent_happy_layout);
                 dayOfMonth = itemView.findViewById(R.id.cellHappyDayText);
