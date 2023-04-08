@@ -246,15 +246,13 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
 
         Animation slideIn, slideOut;
 
-        if ( oldDate == null){
+        if (oldDate == null) {
             innerLayout.startAnimation(AnimationUtils.loadAnimation(this, R.anim.popup));
             return;
-        }
-        else if(selectedDate != null && selectedDate.isBefore(oldDate)) {
+        } else if (selectedDate != null && selectedDate.isBefore(oldDate)) {
             slideOut = AnimationUtils.loadAnimation(this, R.anim.slide_out_right);
             slideIn = AnimationUtils.loadAnimation(this, R.anim.slide_in_left);
-        }
-        else {
+        } else {
             slideIn = AnimationUtils.loadAnimation(this, R.anim.slide_in_right);
             slideOut = AnimationUtils.loadAnimation(this, R.anim.slide_out_left);
             innerLayout.startAnimation(slideIn);
@@ -267,6 +265,7 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
 
             @Override
             public void onAnimationEnd(Animation animation) {
+                // Set the view visibility to VISIBLE before starting slide-in animation
                 calendarRecyclerView.setVisibility(View.VISIBLE);
                 innerLayout.startAnimation(slideIn);
             }
@@ -276,9 +275,11 @@ public class MainActivity extends AppCompatActivity implements CalendarAdapter.O
             }
         });
 
+        // Set the view visibility to INVISIBLE before starting slide-out animation
         calendarRecyclerView.setVisibility(View.INVISIBLE);
         innerLayout.startAnimation(slideOut);
     }
+
 }
 
 
