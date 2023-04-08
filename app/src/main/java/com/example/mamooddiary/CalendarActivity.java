@@ -31,7 +31,6 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
 
     //ImageView previousButton, nextButton;
     TextView btnBackToSplash;
-    MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +39,7 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
         initWidgets();
         selectedDate = LocalDate.now();
         setMonthView();
-        mediaPlayer = MediaPlayer.create(this, R.raw.click);
         closeActionBar();
-
-
     }
 
     private void initWidgets() {

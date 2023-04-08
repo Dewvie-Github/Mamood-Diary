@@ -15,6 +15,7 @@ public class MoodtrackerActivity extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_moodtracker);
 
+
         btnBackToSplashFromLearnMore = (TextView) findViewById(R.id.btnBackToSplashFromLearnMore);
         btnBackToSplashFromLearnMore.setOnClickListener(this);
 

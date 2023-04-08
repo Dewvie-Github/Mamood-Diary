@@ -62,7 +62,13 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
         dbh = new DBHelper(this);
 
         mediaPlayer = MediaPlayer.create(this, R.raw.click);
-
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                if(mediaPlayer != null)
+                    mediaPlayer.release();
+            }
+        });
         closeActionBar();
     }
 
