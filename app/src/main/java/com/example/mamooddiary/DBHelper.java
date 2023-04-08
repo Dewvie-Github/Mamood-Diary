@@ -2,6 +2,7 @@ package com.example.mamooddiary;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -16,6 +17,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String col_4 ="year";
     public static final String col_5 ="message";
     public static final String col_6 ="mood";
+    public SQLiteDatabase db = this.getWritableDatabase();
 
 
 
@@ -37,7 +39,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public boolean AddData(String day,String month,String year,String message,String mood){
-        SQLiteDatabase db = this.getWritableDatabase();
+
         ContentValues contentValues = new ContentValues();
         contentValues.put(col_2,day);
         contentValues.put(col_3,month);
@@ -51,5 +53,22 @@ public class DBHelper extends SQLiteOpenHelper {
         }else {
             return true;
         }
+    }
+    public String  selectMood(String day,String month,String year){
+
+        String selectmood = "SELECT mood FROM Mytable WHERE day = ? AND month = ? AND year = ?";
+        String mood = "";
+
+        String[] args = new String[] { String.valueOf(day), String.valueOf(month), String.valueOf(year) };
+        Cursor cursor = db.rawQuery(selectmood, args);
+
+        if (cursor.moveToFirst()) {
+            mood = cursor.getString(0);
+        }
+
+        cursor.close();
+        db.close();
+
+        return mood;
     }
 }

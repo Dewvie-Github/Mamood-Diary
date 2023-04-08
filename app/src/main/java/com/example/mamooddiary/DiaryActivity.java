@@ -77,10 +77,10 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.diarySaveButton:
                 boolean IsSucceed = dbh.AddData(
-                        message.getText().toString(),
                         String.valueOf( day ),
                         String.valueOf( month ),
                         String.valueOf( year ),
+                        message.getText().toString(),
                         mood);
                 if (IsSucceed){
                     mediaPlayer.start();

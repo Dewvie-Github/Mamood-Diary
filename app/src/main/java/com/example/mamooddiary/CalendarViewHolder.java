@@ -1,5 +1,6 @@
 package com.example.mamooddiary;
 
+import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.
     private int day;
     private int monthOfDay;
     private int yearOfDay;
+
 
     private final CalendarAdapter.OnItemListener onItemListener;
     public CalendarViewHolder(@NonNull View itemView,
@@ -35,12 +37,12 @@ public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.
             dayOfMonth = itemView.findViewById(R.id.cellEmptyDayText);;
         }
         // default day
-        else if ( !isDairyDay(day, monthOfDay, yearOfDay)){
+        else if ( !isDairyDay(itemView.getContext(),day, monthOfDay, yearOfDay)){
             parentLayout = itemView.findViewById(R.id.parent_default_layout);
             dayOfMonth = itemView.findViewById(R.id.cellDefaultDayText);
             itemView.setOnClickListener(this);
         }
-        switch (getMoodTypeByDate(day,monthOfDay,yearOfDay)){
+        switch (getMoodTypeByDate(itemView.getContext() ,day,monthOfDay,yearOfDay)){
             case "happy":
                 parentLayout = itemView.findViewById(R.id.parent_happy_layout);
                 dayOfMonth = itemView.findViewById(R.id.cellHappyDayText);
@@ -79,25 +81,23 @@ public class CalendarViewHolder extends RecyclerView.ViewHolder implements View.
                 day, monthOfDay, yearOfDay );
     }
 
-    public static boolean isDairyDay(int day, int monthOfDay, int yearOfDay) {
-        // this is sql but now it mockup
-        // like SELECT * FROM my_table WHERE day = day AND month = monthOfDay AND year = yearOfDay;
-        for (MockNote note : MockData.getMockNotes()) {
-            if (note.getDay() == day && note.getMonth() == monthOfDay && note.getYear() == yearOfDay) {
-                return true;
-            }
+    public static boolean isDairyDay(Context context ,int day, int monthOfDay, int yearOfDay) {
+
+
+        DBHelper dbHelper = new DBHelper(context);
+        String mood =dbHelper.selectMood(String.valueOf(day), String.valueOf(monthOfDay), String.valueOf(yearOfDay));
+        if (mood.equals("")) {
+            return false;
         }
-        return false;
+        return true;
     }
 
-    public static String getMoodTypeByDate(int day, int monthOfDay, int yearOfDay) {
+    public static String getMoodTypeByDate(Context context, int day, int monthOfDay, int yearOfDay) {
         String mood = "";
 
-        for (MockNote note : MockData.getMockNotes()) {
-            if (note.getDay() == day && note.getMonth() == monthOfDay && note.getYear() == yearOfDay) {
-                mood = note.getMood();
-            }
-        }
+        DBHelper dbHelper = new DBHelper(context);
+
+        mood = dbHelper.selectMood(String.valueOf(day), String.valueOf(monthOfDay),String.valueOf(yearOfDay));
 
         return mood;
     }

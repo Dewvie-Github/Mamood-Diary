@@ -43,14 +43,14 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder> {
         String mood = "";
         // getMoodTypeByDate
         if(day != -1)
-            mood = CalendarViewHolder.getMoodTypeByDate(Integer.parseInt(dayOfMonth.get(counterDateOfMonth)), monthOfDay,  yearOfDay);
+            mood = CalendarViewHolder.getMoodTypeByDate(parent.getContext() ,Integer.parseInt(dayOfMonth.get(counterDateOfMonth)), monthOfDay,  yearOfDay);
 
 
         // non day
         if ( day == -1 ){
             view = inflater.inflate(R.layout.calendar_empty_cell, parent, false);
         }
-        else if(!CalendarViewHolder.isDairyDay(day, monthOfDay, yearOfDay)){
+        else if(!CalendarViewHolder.isDairyDay(parent.getContext(),day, monthOfDay, yearOfDay)){
             view = inflater.inflate(R.layout.calendar_default_cell, parent, false);
         }else if (mood.equals("happy")){
             view = inflater.inflate(R.layout.calendar_happy_cell, parent, false);
