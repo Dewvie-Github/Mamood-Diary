@@ -43,7 +43,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder> {
         String mood = "";
         // getMoodTypeByDate
         if(day != -1)
-            mood = CalendarViewHolder.getMoodTypeByDate(Integer.parseInt(dayOfMonth.get(counterDateOfMonth)), monthOfDay,  yearOfDay);
+            mood = CalendarViewHolder.getMoodTypeByDate(parent.getContext() ,Integer.parseInt(dayOfMonth.get(counterDateOfMonth)), monthOfDay,  yearOfDay);
 
 
         // non day
