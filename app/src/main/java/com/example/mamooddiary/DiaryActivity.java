@@ -140,7 +140,7 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
             setMoodButton(mood);
             diaryEditText.setText(diaryString);
         }dateInfoTextView.setText(
-                date.getDayOfWeek().name() + ", " +
+                date.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ENGLISH) + ", " +
                         date.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH) + " " +
                         date.getDayOfMonth()
         );

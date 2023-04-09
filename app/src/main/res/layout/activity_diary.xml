@@ -47,13 +47,13 @@
 
         <TextView
             android:id="@+id/dateInfoTextView"
-            android:layout_width="166dp"
+            android:layout_width="250dp"
             android:layout_height="33dp"
             android:layout_marginStart="4dp"
             android:text="Thursday, April 6"
-            android:textAlignment="center"
+            android:textAlignment="textStart"
             android:textColor="#FFFFFF"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView8"
