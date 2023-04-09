@@ -176,6 +176,7 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
                     // Update the selectedDate with the selected month and year
                     oldDate = selectedDate;
                     selectedDate = LocalDate.of(year, month, 1);
+                    startAnimation(selectedDate, oldDate);
                     setMonthView();
                 }
         );
