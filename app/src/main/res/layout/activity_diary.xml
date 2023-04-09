@@ -46,14 +46,14 @@
             app:srcCompat="@drawable/logo" />
 
         <TextView
-            android:id="@+id/monthTextView2"
+            android:id="@+id/dateInfoTextView"
             android:layout_width="166dp"
             android:layout_height="33dp"
             android:layout_marginStart="4dp"
             android:text="Thursday, April 6"
             android:textAlignment="center"
             android:textColor="#FFFFFF"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView8"
@@ -243,8 +243,9 @@
                     android:backgroundTint="#1A1028"
                     android:text="SAVE"
                     android:textAlignment="center"
-                    android:verticalScrollbarPosition="defaultPosition"
-                    android:textSize="24sp" />
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp"
+                    android:verticalScrollbarPosition="defaultPosition" />
 
             </LinearLayout>
         </LinearLayout>

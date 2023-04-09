@@ -1,6 +1,5 @@
 package com.example.mamooddiary;
 
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -16,11 +15,14 @@ public class MonthYearPickerDialog {
     private final OnMonthYearSelectedListener listener;
     private final Calendar calendar;
     private final String[] monthNames;
+    private final int inputMonth, inputYear;
 
-    public MonthYearPickerDialog(Context context, OnMonthYearSelectedListener listener) {
+    public MonthYearPickerDialog(Context context, int inputMonth, int inputYear, OnMonthYearSelectedListener listener) {
         this.context = context;
         this.listener = listener;
         this.calendar = Calendar.getInstance();
+        this.inputMonth = inputMonth;
+        this.inputYear = inputYear;
         this.monthNames = new DateFormatSymbols().getMonths();
     }
 
@@ -38,9 +40,10 @@ public class MonthYearPickerDialog {
 
         int currentYear = calendar.get(Calendar.YEAR);
         int currentMonth = calendar.get(Calendar.MONTH);
+
         yearPicker.setMinValue(currentYear - 100);
         yearPicker.setMaxValue(currentYear);
-        yearPicker.setValue(currentYear);
+        yearPicker.setValue(inputYear);
 
         // Set the max value of the monthPicker based on the selected year
         yearPicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
@@ -51,20 +54,20 @@ public class MonthYearPickerDialog {
             }
         });
 
-        // Initialize the monthPicker based on the current date
+        // Initialize the monthPicker based on the input date
         if (yearPicker.getValue() == currentYear) {
             monthPicker.setMaxValue(currentMonth);
-            monthPicker.setValue(currentMonth);
+            monthPicker.setValue(inputMonth);
         } else {
             monthPicker.setMaxValue(11);
-            monthPicker.setValue(0);
+            monthPicker.setValue(inputMonth);
         }
 
         builder.setView(view)
                 .setPositiveButton("OK", (dialog, which) -> {
                     int selectedMonth = monthPicker.getValue();
                     int selectedYear = yearPicker.getValue();
-                    listener.onMonthYearSelected(selectedMonth, selectedYear);
+                    listener.onMonthYearSelected(selectedMonth + 1, selectedYear); // Add 1 to the selected month
 
                 })
                 .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
@@ -77,4 +80,3 @@ public class MonthYearPickerDialog {
     }
 
 }
-

@@ -170,6 +170,8 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
     private void showDatePickerDialog() {
         MonthYearPickerDialog monthYearPickerDialog = new MonthYearPickerDialog(
                 this,
+                selectedDate.getMonthValue(),
+                selectedDate.getYear(),
                 (month, year) -> {
                     // Update the selectedDate with the selected month and year
                     oldDate = selectedDate;
@@ -183,7 +185,8 @@ public class CalendarActivity extends AppCompatActivity implements CalendarAdapt
     }
 
     private void onSwipeLeft() {
-        if (selectedDate.plusMonths(1).getMonthValue() > LocalDate.now().getMonthValue()) return;
+
+        if (selectedDate.plusMonths(1).isAfter(LocalDate.now())) return;
         oldDate = selectedDate;
         selectedDate = selectedDate.plusMonths(1);
         startAnimation(selectedDate, oldDate);

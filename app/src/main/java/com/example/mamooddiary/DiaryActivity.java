@@ -12,11 +12,15 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.time.LocalDate;
+import java.time.format.TextStyle;
+import java.util.Locale;
+
 
 public class DiaryActivity extends AppCompatActivity implements View.OnClickListener {
     DBHelper dbh;
     private int day, month, year;
-    TextView diaryBackButton, diarySaveButton;
+    TextView diaryBackButton, diarySaveButton, dateInfoTextView;
     ImageButton moodButton5,moodButton1,moodButton2,moodButton3,moodButton4;
 
     String mood, diaryString;
@@ -131,10 +135,15 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
         initDatabase();
         initMediaPlayer();
 
+        LocalDate date = LocalDate.of(year, month, day);
         if (queryType == QueryType.UPDATE){
             setMoodButton(mood);
             diaryEditText.setText(diaryString);
-        }
+        }dateInfoTextView.setText(
+                date.getDayOfWeek().name() + ", " +
+                        date.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH) + " " +
+                        date.getDayOfMonth()
+        );
     }
 
     private void initUI() {
@@ -155,6 +164,8 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
         moodButton3.setOnClickListener(this);
         moodButton4.setOnClickListener(this);
         moodButton5.setOnClickListener(this);
+
+        dateInfoTextView=findViewById(R.id.dateInfoTextView);
     }
 
     private void initDatabase() {
