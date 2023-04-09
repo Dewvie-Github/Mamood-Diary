@@ -54,7 +54,7 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
                 if (!queryDatabase()){
                     return;
                 }
-
+                mediaPlayer.start();
                 finish();
                 break;
         }
