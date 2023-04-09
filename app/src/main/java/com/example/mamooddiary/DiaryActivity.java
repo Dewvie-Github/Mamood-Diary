@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -20,9 +21,10 @@ import java.util.Locale;
 public class DiaryActivity extends AppCompatActivity implements View.OnClickListener {
     DBHelper dbh;
     private int day, month, year;
-    TextView diaryBackButton, diarySaveButton, dateInfoTextView;
+    TextView diaryBackButton, dateInfoTextView;
     ImageButton moodButton5,moodButton1,moodButton2,moodButton3,moodButton4;
 
+    Button diarySaveButton;
     String mood, diaryString;
 
     EditText diaryEditText;
@@ -49,7 +51,9 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
                 finish();
                 break;
             case R.id.diarySaveButton:
-                queryDatabase();
+                if (!queryDatabase()){
+                    return;
+                }
 
                 finish();
                 break;
@@ -139,11 +143,13 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
         if (queryType == QueryType.UPDATE){
             setMoodButton(mood);
             diaryEditText.setText(diaryString);
-        }dateInfoTextView.setText(
+        }
+        dateInfoTextView.setText(
                 date.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ENGLISH) + ", " +
                         date.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH) + " " +
                         date.getDayOfMonth()
         );
+
     }
 
     private void initUI() {
@@ -205,6 +211,10 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
     private Boolean queryDatabase(){
         switch (queryType){
             case INSERT:
+                if( mood.isEmpty() ){
+                    Toast.makeText(this, "โปรดเลือก \"Mood Tracker\" ก่อน Save", Toast.LENGTH_LONG).show();
+                    return false;
+                }
                 dbh.AddData(
                         String.valueOf( day ),
                         String.valueOf( month ),
