@@ -21,7 +21,7 @@ public class MonthYearPickerDialog {
         this.context = context;
         this.listener = listener;
         this.calendar = Calendar.getInstance();
-        this.inputMonth = inputMonth;
+        this.inputMonth = inputMonth - 1;
         this.inputYear = inputYear;
         this.monthNames = new DateFormatSymbols().getMonths();
     }
@@ -54,14 +54,13 @@ public class MonthYearPickerDialog {
             }
         });
 
-        // Initialize the monthPicker based on the input date
-        if (yearPicker.getValue() == currentYear) {
+        // Initialize the monthPicker based on the input date and selected year
+        if (inputYear == currentYear) {
             monthPicker.setMaxValue(currentMonth);
-            monthPicker.setValue(inputMonth);
         } else {
             monthPicker.setMaxValue(11);
-            monthPicker.setValue(inputMonth);
         }
+        monthPicker.setValue(inputMonth);
 
         builder.setView(view)
                 .setPositiveButton("OK", (dialog, which) -> {

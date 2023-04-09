@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder> {
@@ -33,7 +34,20 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder> {
         // Retrieve the day value based on the position
         String dayStr = dayOfMonth.get(counterDateOfMonth);
 
-        int day = dayStr.equals("") ? -1 : Integer.parseInt(dayStr);
+//        int day = dayStr.equals("") ? -1 : Integer.parseInt(dayStr);
+        int day;
+        // make it empty cell if that date in cell is after date.now()
+        if ( dayStr.equals("") ||
+                LocalDate.of(
+                        yearOfDay,
+                        monthOfDay,
+                        Integer.parseInt(dayOfMonth.get(counterDateOfMonth))
+                ).isAfter(LocalDate.now()) )  {
+            day = -1;
+        }
+        else {
+            day = Integer.parseInt(dayStr);
+        }
 
         // set calendar cells
         LayoutInflater inflater;
