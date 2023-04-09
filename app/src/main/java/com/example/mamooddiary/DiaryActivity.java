@@ -87,6 +87,7 @@ public class DiaryActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void setMoodButton(String mood){
+        if (mood == null) return;
         switch (mood){
             case "happy":
                 unselectedButton();
